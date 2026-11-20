@@ -49,7 +49,6 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 button{font-family:inherit;cursor:pointer}
 
-/* header */
 header.brand{background:var(--dark);color:var(--dark-fg);text-align:center;padding-block:16px;position:relative;z-index:10}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--dark);z-index:11}
 .wordmark{font-family:var(--serif);text-transform:uppercase;font-size:clamp(15px,3vw,19px);letter-spacing:.26em;font-weight:500}
@@ -57,7 +56,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .theme-btn{position:absolute;top:50%;right:max(16px,env(safe-area-inset-right,0px));transform:translateY(-50%);appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:33px;height:33px;border-radius:50%;font-size:13px}
 .theme-btn:hover{border-color:#666;color:#fff}
 
-/* intro marbre */
 .intro{text-align:center;padding-block:40px 30px;border-bottom:1px solid var(--line)}
 .intro .eyebrow{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
 .intro h2{font-family:var(--serif);font-size:clamp(30px,6vw,52px);letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin:14px 0 0}
@@ -68,7 +66,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .intro .mchip.demo{color:var(--bronze);background:var(--bronze-s);border-color:color-mix(in srgb,var(--bronze) 30%,transparent);font-weight:600;text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:7px}
 .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
 
-/* architecture */
 .arch{background:var(--surface);border:1px solid var(--line);padding:16px;margin-top:22px;box-shadow:var(--shadow)}
 .arch-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:13px}
 .arch-top h3{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);font-weight:600}
@@ -81,7 +78,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .arrow{flex:none;align-self:center;color:var(--ink3);padding:0 6px;font-size:14px}
 .ntag{display:inline-block;margin-top:5px;font-family:var(--mono);font-size:9px;font-weight:500;color:var(--nav);background:var(--bg);border:1px solid var(--line);padding:2px 6px;align-self:flex-start;letter-spacing:.02em}
 
-/* grid */
 .grid{display:grid;grid-template-columns:260px 1fr 300px;gap:16px;margin:16px 0 30px;align-items:start}
 .panel{background:var(--surface);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
 .panel-h{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;background:var(--panel)}
@@ -89,20 +85,21 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .panel-h .ic{color:var(--nav);font-size:12px}
 .panel-b{padding:14px}
 .sub{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:16px 0 8px;font-weight:600}
+.subhint{font-family:var(--sans);font-size:10.5px;color:var(--ink3);margin:8px 0 2px;text-transform:none;letter-spacing:0}
 
-/* governance */
 .seg{display:flex;flex-direction:column;gap:6px}
 .seg button{text-align:left;background:var(--bg);border:1px solid var(--line);padding:9px 11px;color:var(--ink);display:flex;flex-direction:column;gap:2px;transition:.12s}
 .seg button b{font-family:var(--sans);font-size:12.5px;font-weight:600}
 .seg button small{font-size:11px;color:var(--ink3)}
 .seg button[aria-pressed="true"]{border-color:var(--nav);background:var(--nav-s);box-shadow:inset 0 0 0 1px var(--nav)}
-.doc{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-top:1px solid var(--line2)}
+.doc{width:100%;text-align:left;display:flex;align-items:flex-start;gap:9px;padding:9px 6px;border:none;border-top:1px solid var(--line2);background:transparent;transition:.12s}
 .doc:first-of-type{border-top:0}
+.doc:hover{background:var(--panel)}
 .doc .st{flex:none;width:18px;height:18px;display:grid;place-items:center;margin-top:1px;font-size:11px;font-weight:700}
 .doc.ok .st{background:var(--green-s);color:var(--green)}
 .doc.no .st{background:var(--bord-s);color:var(--bord)}
 .doc .meta{min-width:0}
-.doc .meta b{display:block;font-family:var(--sans);font-size:12px;font-weight:500;line-height:1.35}
+.doc .meta b{display:block;font-family:var(--sans);font-size:12px;font-weight:500;line-height:1.35;color:var(--ink)}
 .doc .meta code{font-family:var(--mono);font-size:10px;color:var(--ink3)}
 .cls{display:inline-block;font-family:var(--sans);font-size:9px;font-weight:600;padding:1px 5px;margin-left:4px;letter-spacing:.02em;text-transform:uppercase}
 .cls.int{background:var(--panel);color:var(--ink2);border:1px solid var(--line)}
@@ -111,8 +108,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:10.5px;font-weight:600;background:var(--green-s);color:var(--green);padding:4px 8px}
 .badge.n{background:var(--panel);color:var(--ink2)}
 
-/* chat */
-.chat{display:flex;flex-direction:column;min-height:540px}
+.chat{display:flex;flex-direction:column;min-height:560px}
 .stream{flex:1 1 auto;padding:16px;display:flex;flex-direction:column;gap:14px;overflow:auto}
 .msg{display:flex;gap:10px;max-width:92%}
 .msg .av{flex:none;width:28px;height:28px;display:grid;place-items:center;font-size:12px;font-weight:600;font-family:var(--serif)}
@@ -129,10 +125,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .exnote b{color:var(--ink2);font-weight:600}
 .src{margin-top:11px;display:flex;flex-direction:column;gap:6px}
 .src-h{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:600}
-.src .item{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);padding:7px 9px;font-size:12px;color:var(--ink)}
+.src button.item{width:100%;text-align:left;font-family:inherit;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);padding:7px 9px;font-size:12px;color:var(--ink);cursor:pointer;transition:.12s}
+.src button.item:hover{border-color:var(--nav)}
 .src .item b{font-weight:600}
 .src .item code{font-family:var(--mono);font-size:10px;color:var(--ink3)}
-.src .score{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--nav);background:var(--nav-s);padding:1px 6px}
+.src .item .score{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--nav);background:var(--nav-s);padding:1px 6px}
+.src .item .open{font-family:var(--sans);font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--nav);border:1px solid var(--nav);padding:2px 6px}
 .caret::after{content:"▋";color:var(--nav);animation:bl 1s steps(2) infinite}
 @keyframes bl{50%{opacity:0}}
 .composer{border-top:1px solid var(--line);padding:12px 14px;background:var(--surface)}
@@ -145,7 +143,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .composer-in button{flex:none;background:var(--nav);color:#fff;border:none;padding:8px 15px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.04em}
 .composer-in button:disabled{opacity:.5}
 
-/* console */
 .console{background:var(--console);border-color:transparent;color:var(--console-fg)}
 .console .panel-h{border-color:var(--console-line);background:transparent}
 .console .panel-h h3{color:#8ea3c4}
@@ -177,6 +174,24 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .log li .s.ok{color:#5aa77e}.log li .s.deny{color:#d98a86}.log li .s.nf{color:#d4b45e}
 .empty{color:var(--console-dim);font-size:11px;font-style:italic}
 
+/* lecteur de document */
+.docview{position:fixed;inset:0;z-index:50;background:rgba(10,10,10,.6);display:flex;align-items:flex-start;justify-content:center;padding:max(26px,env(safe-area-inset-top,0px)) 16px 26px;overflow:auto}
+.dv-panel{background:var(--bg);border:1px solid var(--line);max-width:760px;width:100%;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+.dv-head{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--line);padding:13px 16px;display:flex;align-items:center;gap:10px}
+.dv-head .dvt{font-family:var(--serif);font-size:15px;letter-spacing:.02em;color:var(--ink);font-weight:600;min-width:0;line-height:1.3}
+.dv-head .dvc{font-family:var(--mono);font-size:10px;color:var(--ink3);border:1px solid var(--line);padding:2px 6px;flex:none}
+.dv-head .dvx{margin-left:auto;appearance:none;background:transparent;border:1px solid var(--line);color:var(--ink2);width:30px;height:30px;flex:none}
+.dv-head .dvx:hover{border-color:var(--ink3);color:var(--ink)}
+.dv-body{padding:16px 20px 22px}
+.dv-sec{padding:12px 0;border-top:1px solid var(--line2)}
+.dv-sec:first-child{border-top:none}
+.dv-sec h5{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--nav);margin:0 0 6px;text-transform:none}
+.dv-sec p{font-family:var(--sans);font-size:13px;color:var(--ink);line-height:1.7;margin:0}
+.dv-sec.hl{background:var(--nav-s);margin:0 -12px;padding:12px}
+.dv-deny{padding:18px;background:var(--bord-s);border:1px solid color-mix(in srgb,var(--bord) 35%,transparent)}
+.dv-deny .rt{display:flex;gap:6px;font-family:var(--sans);font-size:11px;color:var(--bord);font-weight:600;text-transform:uppercase;margin-bottom:8px}
+.dv-hint{font-family:var(--sans);font-size:11px;color:var(--ink3);margin-top:9px}
+
 footer{background:var(--dark);color:#9a9a9a;padding-block:28px 40px;margin-top:4px}
 footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:14px;letter-spacing:.22em;text-align:center}
 footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;text-align:center;margin-top:7px;color:#bfbfbf}
@@ -198,14 +213,13 @@ footer .fb+.fb{margin-top:10px}
   <section class="intro">
     <div class="eyebrow">Solution GenAI · RAG agentique gouverné</div>
     <h2>Atlas</h2>
-    <p class="plain">En clair : un assistant qui répond aux questions à partir de la <b>documentation technique</b> d'un industriel. Il ne montre à chacun que ce qu'il a le <b>droit de voir</b>, cite toujours ses <b>sources</b>, et garde les <b>coûts sous contrôle</b>. Posez votre question en saisie libre.</p>
+    <p class="plain">En clair : un assistant qui répond à partir de la <b>documentation technique</b> d'un industriel. Il ne montre à chacun que ce qu'il a le <b>droit de voir</b>, cite toujours ses <b>sources</b>, et garde les <b>coûts sous contrôle</b>. Posez une question en saisie libre, puis cliquez une source pour la vérifier dans le document.</p>
     <div class="meta">
       <span class="mchip demo"><span class="dot"></span>Démo · données fictives</span>
       <span class="mchip">Récupération, droits et citations réels, calculés dans votre navigateur</span>
     </div>
   </section>
 
-  <!-- architecture -->
   <div class="arch">
     <div class="arch-top">
       <h3>Architecture</h3>
@@ -216,7 +230,7 @@ footer .fb+.fb{margin-top:10px}
       <span class="arrow">&rsaquo;</span>
       <div class="node"><b>Ingestion</b><small>parsing · chunking</small></div>
       <span class="arrow">&rsaquo;</span>
-      <div class="node"><b>Index</b><small>recherche de passages</small></div>
+      <div class="node"><b>Index</b><small>TF-IDF · passages</small></div>
       <span class="arrow">&rsaquo;</span>
       <div class="node k"><b>Récupération</b><small>scoring + filtre</small><span class="ntag">IAM / ACL</span></div>
       <span class="arrow">&rsaquo;</span>
@@ -227,13 +241,13 @@ footer .fb+.fb{margin-top:10px}
   </div>
 
   <div class="grid">
-    <!-- governance -->
     <div class="panel">
       <div class="panel-h"><span class="ic">◆</span><h3>Gouvernance</h3></div>
       <div class="panel-b">
         <div class="sub" style="margin-top:0">Rôle de l'utilisateur</div>
         <div class="seg" id="roles"></div>
         <div class="sub">Périmètre documentaire</div>
+        <div class="subhint">Cliquez un document pour le consulter.</div>
         <div id="docs"></div>
         <div class="sub">Conformité</div>
         <div class="badges">
@@ -246,7 +260,6 @@ footer .fb+.fb{margin-top:10px}
       </div>
     </div>
 
-    <!-- chat -->
     <div class="panel chat">
       <div class="panel-h"><span class="ic">▣</span><h3>Assistant</h3><span style="margin-left:auto;font-size:11px;color:var(--ink3)" id="roleTag" class="mono"></span></div>
       <div class="stream" id="stream"></div>
@@ -259,7 +272,6 @@ footer .fb+.fb{margin-top:10px}
       </div>
     </div>
 
-    <!-- console -->
     <div class="panel console">
       <div class="panel-h"><span class="ic">▮</span><h3>Observabilité &amp; FinOps</h3></div>
       <div class="panel-b">
@@ -278,10 +290,17 @@ footer .fb+.fb{margin-top:10px}
         </div>
         <div class="log">
           <h4>Journal d'audit</h4>
-          <ul id="log"><li class="empty">Aucune requête. Posez une question ou cliquez un exemple.</li></ul>
+          <ul id="log"><li class="empty">Aucune action. Posez une question ou ouvrez un document.</li></ul>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="docview" id="docview" hidden>
+  <div class="dv-panel">
+    <div class="dv-head"><span class="dvt" id="dvTitle"></span><span class="dvc mono" id="dvCode"></span><button class="dvx" id="dvClose" aria-label="Fermer">✕</button></div>
+    <div class="dv-body" id="dvBody"></div>
   </div>
 </div>
 
@@ -289,8 +308,8 @@ footer .fb+.fb{margin-top:10px}
   <div class="wrap">
     <div class="fm">Baba Moustapha Amadou</div>
     <div class="fs">ATLAS · Démonstrateur industriel</div>
-    <p class="fb"><b>À propos.</b> Démonstrateur sur données fictives (« VOLTYS Industrial »), sans aucun contenu confidentiel ni système client réel. Cas d'usage industriel transposable, dans la lignée des entreprises accompagnées au 237 Digital Trade Innovation Lab, sans nommer aucune entreprise. Dans cette version, la <b>récupération, le filtrage des droits et les citations sont réels et calculés dans votre navigateur</b> ; la génération en langage naturel est assurée par le backend du dépôt, non appelé ici pour rester gratuit et sans clé exposée.</p>
-    <p class="fb">Ce que ça démontre : récupération augmentée (RAG) sur documentation technique, contrôle d'accès par rôle (IAM) appliqué <b>avant</b> la récupération, citations traçables, routage de modèles via AI Gateway, suivi des coûts (FinOps) et observabilité, repères de conformité RGPD et AI Act.</p>
+    <p class="fb"><b>À propos.</b> Démonstrateur sur données fictives (« VOLTYS Industrial »), sans aucun contenu confidentiel ni système client réel. Cas d'usage industriel transposable, dans la lignée des entreprises accompagnées au 237 Digital Trade Innovation Lab, sans nommer aucune entreprise. La <b>récupération (TF-IDF), le filtrage des droits, les citations et la consultation des documents sont réels et calculés dans votre navigateur</b> ; la génération en langage naturel est assurée par le backend du dépôt, non appelé ici pour rester gratuit et sans clé exposée.</p>
+    <p class="fb">Ce que ça démontre : récupération augmentée (RAG) sur documentation technique, contrôle d'accès par rôle (IAM) appliqué <b>avant</b> la récupération, citations traçables et vérifiables, routage de modèles via AI Gateway, suivi des coûts (FinOps) et observabilité, repères de conformité RGPD et AI Act.</p>
   </div>
 </footer>
 
@@ -311,50 +330,72 @@ footer .fb+.fb{margin-top:10px}
     support:{name:"Support client",desc:"Documentation diffusable"}
   };
   var DOCS=[
-    {id:"MAN-X7",t:"Manuel d'exploitation · Onduleur modulaire X7",cls:"int",roles:["tech","rd","support"]},
-    {id:"PROC-STOCK",t:"Procédure de maintenance · Stockage LiFePO4",cls:"int",roles:["tech","rd"]},
-    {id:"SPEC-SW400",t:"Spécification technique · Appareillage SW400",cls:"int",roles:["tech","rd","support"]},
-    {id:"FDS-B12",t:"Fiche de données de sécurité · Électrolyte B12",cls:"conf",roles:["rd"]},
-    {id:"RETEX-2024",t:"RETEX & non-conformités 2024",cls:"conf",roles:["rd"]}
+   {id:"MAN-X7",t:"Manuel d'exploitation · Onduleur modulaire X7",cls:"int",roles:["tech","rd","support"],sections:[
+     {loc:"§1.1",title:"Présentation générale",text:"L'onduleur modulaire X7 est un convertisseur statique triphasé de 250 kVA, extensible par modules de 50 kVA. Il assure l'alimentation sans interruption des charges critiques et la régulation de la tension de sortie."},
+     {loc:"§1.3",title:"Conditions d'environnement",text:"Plage de température de fonctionnement de l'onduleur X7 : de -10 °C à +40 °C en régime nominal, et jusqu'à +50 °C avec déclassement de puissance (environ -2 % par °C au-delà de 40 °C). Humidité relative admissible de 5 à 95 % sans condensation. Altitude maximale 2000 m sans déclassement."},
+     {loc:"§2.4",title:"Mise en service",text:"La mise en service impose de vérifier le serrage des connexions de puissance, le sens des phases, la résistance d'isolement et l'absence de corps étrangers avant la première mise sous tension. La séquence de démarrage est automatique après fermeture du sectionneur amont."},
+     {loc:"§4.2",title:"Raccordement de puissance",text:"Le couple de serrage des borniers de puissance de l'onduleur X7 est de 14 N·m plus ou moins 1 pour les sections de câble supérieures ou égales à 95 mm², et de 8 N·m pour les sections inférieures. Utiliser une clé dynamométrique et contrôler le serrage après 48 heures de service."},
+     {loc:"§5.1",title:"Consignation",text:"Procédure de consignation de l'onduleur X7 : coupure amont et aval, décharge du bus continu avec attente de 5 minutes, puis vérification d'une tension inférieure à 50 V avant tout accès. Pose d'un cadenas nominatif et enregistrement au registre de consignation."},
+     {loc:"§6.3",title:"Maintenance préventive",text:"Maintenance préventive annuelle de l'onduleur X7 : contrôle du serrage des connexions, nettoyage ou remplacement des filtres à air, vérification des ventilateurs et de l'autodiagnostic, test de la batterie de secours. Les condensateurs du bus continu sont remplacés au bout de 7 ans."},
+     {loc:"§7.2",title:"Codes défaut et alarmes",text:"Principaux codes défaut de l'onduleur X7 : E12 surtension du bus continu (vérifier la tension d'entrée), E21 surchauffe (contrôler la ventilation et la température ambiante), E34 défaut d'isolement (isoler et diagnostiquer). Un défaut majeur bascule la charge sur le bypass automatique."}
+   ]},
+   {id:"PROC-STOCK",t:"Procédure de maintenance · Stockage LiFePO4",cls:"int",roles:["tech","rd"],sections:[
+     {loc:"§1",title:"Objet et domaine d'application",text:"La présente procédure définit les opérations de maintenance préventive des systèmes de stockage d'énergie à batteries LiFePO4. Elle s'applique aux racks installés en local technique."},
+     {loc:"§2.1",title:"Plan de maintenance préventive",text:"Plan de maintenance préventive et périodicités : inspection visuelle trimestrielle, contrôle d'équilibrage des cellules et test de capacité tous les 12 mois, remplacement préventif du ventilateur de refroidissement à 40 000 heures de fonctionnement."},
+     {loc:"§2.2",title:"Étapes des opérations",text:"Étapes de la procédure de maintenance : 1) consigner le rack et vérifier l'absence de tension ; 2) contrôle visuel des connexions et de l'absence de gonflement des modules ; 3) mesure de la tension de chaque cellule et de l'écart d'équilibrage ; 4) test de l'état de santé et de la capacité ; 5) nettoyage et resserrage des bornes au couple prescrit ; 6) remise en service et enregistrement."},
+     {loc:"§3.2",title:"Sécurité batterie",text:"En cas d'emballement thermique d'un module de stockage LiFePO4, isoler le rack, ne pas utiliser d'eau, ventiler la zone et alerter. Le port des équipements de protection individuelle est obligatoire pendant toute intervention."},
+     {loc:"§4",title:"Enregistrements",text:"Chaque intervention est tracée dans le registre de maintenance : date, opérateur, mesures relevées, anomalies et actions. Les écarts d'équilibrage supérieurs à 50 mV font l'objet d'une fiche de non-conformité."}
+   ]},
+   {id:"SPEC-SW400",t:"Spécification technique · Appareillage SW400",cls:"int",roles:["tech","rd","support"],sections:[
+     {loc:"§1.2",title:"Caractéristiques assignées",text:"L'appareillage SW400 est un tableau de distribution basse tension prévu pour un courant assigné de 400 ampères sous 690 volts, avec un pouvoir de coupure de 50 kA. Degré de protection IP54, forme de séparation 3b."},
+     {loc:"§2.1",title:"Conditions d'installation",text:"Installation du SW400 en local sec et ventilé, température ambiante de -5 à +40 °C. Prévoir un dégagement de 800 mm en face avant pour l'exploitation et la maintenance."},
+     {loc:"§3.4",title:"Sécurité d'exploitation",text:"Consignation de l'appareillage SW400 : condamnation mécanique du sectionneur général et vérification de l'absence de tension sur les trois phases avant toute intervention. Les manœuvres sont réservées au personnel habilité."},
+     {loc:"§4.1",title:"Essais et conformité",text:"L'appareillage SW400 est conforme à la série de normes CEI 61439. Essais individuels de série : rigidité diélectrique, continuité du circuit de protection, fonctionnement mécanique."}
+   ]},
+   {id:"FDS-B12",t:"Fiche de données de sécurité · Électrolyte B12",cls:"conf",roles:["rd"],sections:[
+     {loc:"§1",title:"Identification",text:"Produit : électrolyte B12 pour cellules lithium-ion de recherche. Usage réservé au laboratoire R&D."},
+     {loc:"§3",title:"Composition et information sur les composants",text:"L'électrolyte B12 est une solution à base d'hexafluorophosphate de lithium (LiPF6) dans un mélange de carbonates organiques, carbonate d'éthylène EC et carbonate de diméthyle DMC, avec additifs propriétaires."},
+     {loc:"§4",title:"Premiers secours",text:"En cas de contact cutané ou oculaire avec l'électrolyte B12, rincer à l'eau pendant 15 minutes et consulter un médecin. En cas d'inhalation, placer la personne à l'air libre."},
+     {loc:"§7",title:"Manipulation et stockage",text:"Manipuler l'électrolyte B12 sous hotte aspirante avec des équipements de protection chimiques. Tenir à l'écart de l'humidité : la réaction avec l'eau libère de l'acide fluorhydrique. Stocker entre 5 et 25 °C en récipient hermétique."},
+     {loc:"§8",title:"Contrôle de l'exposition",text:"Équipements de protection : gants nitrile, lunettes de sécurité et blouse. Ventilation par aspiration à la source. Détecteur d'acide fluorhydrique recommandé dans la zone."}
+   ]},
+   {id:"RETEX-2024",t:"RETEX & non-conformités 2024",cls:"conf",roles:["rd"],sections:[
+     {loc:"§1",title:"Synthèse",text:"Ce retour d'expérience consolide les incidents et non-conformités relevés en 2024 sur les systèmes de stockage et de conversion, avec leurs causes et les actions correctives engagées."},
+     {loc:"§2",title:"Incidents",text:"Six entités de stockage présentaient une dérive d'équilibrage des cellules au-delà du seuil. Deux non-conformités sur le couple de serrage des borniers ont été relevées en production, dont une à l'origine d'un échauffement localisé."},
+     {loc:"§3",title:"Analyse des causes",text:"Causes identifiées : contrôle de serrage non systématique en fin de ligne, absence de test d'équilibrage avant expédition et dérive du capteur de température sur un lot."},
+     {loc:"§4",title:"Actions correctives",text:"Plan d'action : renforcement du contrôle de serrage à la clé dynamométrique, ajout d'un test d'équilibrage systématique en fin de ligne, recalibration des capteurs et révision de la procédure de consignation."}
+   ]}
   ];
-  var CHUNKS=[
-    {doc:"MAN-X7",loc:"§1.3 Conditions d'environnement",text:"Plage de température de fonctionnement de l'onduleur X7 : de -10 °C à +40 °C en régime nominal, et jusqu'à +50 °C avec déclassement de puissance, environ -2 % par °C au-delà de 40 °C. Humidité relative admissible de 5 à 95 % sans condensation."},
-    {doc:"MAN-X7",loc:"§4.2 Raccordement puissance",text:"Le couple de serrage des borniers de puissance de l'onduleur X7 est de 14 N·m plus ou moins 1 pour les sections de câble supérieures ou égales à 95 mm², et de 8 N·m pour les sections inférieures."},
-    {doc:"MAN-X7",loc:"§5.1 Consignation",text:"Procédure de consignation de l'onduleur X7 : coupure amont et aval, décharge du bus continu avec attente de 5 minutes et vérification d'une tension inférieure à 50 V avant tout accès, cadenas nominatif et enregistrement au registre de consignation."},
-    {doc:"MAN-X7",loc:"§2.4 Mise en service",text:"La mise en service de l'onduleur X7 impose la vérification du serrage des connexions, du sens des phases et de la résistance d'isolement avant la première mise sous tension."},
-    {doc:"PROC-STOCK",loc:"§2.1 Plan de maintenance",text:"Maintenance préventive du système de stockage LiFePO4 : inspection visuelle trimestrielle, contrôle d'équilibrage des cellules et test de capacité tous les 12 mois, remplacement préventif du ventilateur de refroidissement à 40 000 heures de fonctionnement."},
-    {doc:"PROC-STOCK",loc:"§3.2 Sécurité batterie",text:"En cas d'emballement thermique d'un module de stockage LiFePO4, isoler le rack, ne pas utiliser d'eau, ventiler la zone et alerter. Le port des équipements de protection individuelle est obligatoire."},
-    {doc:"SPEC-SW400",loc:"§1.2 Caractéristiques",text:"L'appareillage SW400 est prévu pour un courant assigné de 400 ampères sous 690 volts, avec un pouvoir de coupure de 50 kA."},
-    {doc:"SPEC-SW400",loc:"§3.4 Sécurité d'exploitation",text:"Consignation de l'appareillage SW400 : condamnation mécanique du sectionneur et vérification de l'absence de tension sur les trois phases avant toute intervention."},
-    {doc:"FDS-B12",loc:"§3 Composition",text:"L'électrolyte du module B12 est une solution à base de LiPF6 dans un mélange de carbonates organiques EC et DMC. En cas de contact, rinçage à l'eau pendant 15 minutes et consultation médicale."},
-    {doc:"FDS-B12",loc:"§7 Manipulation",text:"Manipuler l'électrolyte B12 sous hotte aspirante, équipements de protection chimiques obligatoires, tenir à l'écart de l'humidité ; la réaction avec l'eau libère de l'acide fluorhydrique."},
-    {doc:"RETEX-2024",loc:"§2 Incidents",text:"RETEX 2024 : six entités de stockage présentaient une dérive d'équilibrage des cellules ; deux non-conformités sur le couple de serrage des borniers ont été relevées en production."},
-    {doc:"RETEX-2024",loc:"§4 Actions correctives",text:"Plan d'action RETEX 2024 : renforcement du contrôle de serrage, ajout d'un test d'équilibrage systématique en fin de ligne et révision de la procédure de consignation."}
-  ];
-  var EXAMPLES=[
-    "Couple de serrage des borniers de l'onduleur X7 ?",
-    "Plage de température de fonctionnement du X7 ?",
-    "Fréquence de maintenance du stockage LiFePO4 ?",
-    "Compare la consignation du X7 et du SW400",
-    "Composition de l'électrolyte du module B12 ?"
-  ];
+  var CHUNKS=[];
+  DOCS.forEach(function(d){d.sections.forEach(function(s,si){CHUNKS.push({doc:d.id,si:si,loc:s.loc,title:s.title,text:s.text});});});
 
-  var STOP={"le":1,"la":1,"les":1,"un":1,"une":1,"des":1,"de":1,"du":1,"d":1,"l":1,"a":1,"au":1,"aux":1,"et":1,"ou":1,"en":1,"dans":1,"sur":1,"pour":1,"par":1,"avec":1,"sans":1,"est":1,"sont":1,"se":1,"son":1,"sa":1,"ses":1,"ce":1,"cet":1,"cette":1,"quel":1,"quelle":1,"quels":1,"quelles":1,"que":1,"qui":1,"quoi":1,"comment":1,"combien":1,"the":1,"of":1,"to":1,"is":1,"are":1,"what":1,"how":1};
+  var STOP={"le":1,"la":1,"les":1,"un":1,"une":1,"des":1,"de":1,"du":1,"d":1,"l":1,"a":1,"au":1,"aux":1,"et":1,"ou":1,"en":1,"dans":1,"sur":1,"pour":1,"par":1,"avec":1,"sans":1,"est":1,"sont":1,"se":1,"son":1,"sa":1,"ses":1,"ce":1,"cet":1,"cette":1,"quel":1,"quelle":1,"quels":1,"quelles":1,"que":1,"qui":1,"quoi":1,"comment":1,"combien":1,"notre":1,"nos":1,"votre":1,"vos":1,"leur":1,"the":1,"of":1,"to":1,"is":1,"are":1,"what":1,"how":1};
   function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
-  function toks(s){return norm(s).split(/\s+/).filter(function(w){return w.length>1 && !STOP[w];});}
-  CHUNKS.forEach(function(c){var set={};toks(c.text+" "+c.loc).forEach(function(w){set[w]=1;});c._set=set;});
-
+  function key(w){return w.length>5?w.slice(0,5):w;}
+  function keys(s){var o=[];norm(s).split(/\s+/).forEach(function(w){if(w.length>1 && !STOP[w])o.push(key(w));});return o;}
+  var DF={},N=CHUNKS.length;
+  CHUNKS.forEach(function(c){var set={};keys(c.text+" "+c.title).forEach(function(k){set[k]=1;});c._set=set;Object.keys(set).forEach(function(k){DF[k]=(DF[k]||0)+1;});});
+  function idf(k){return Math.log(1+N/((DF[k]||0)+1));}
+  function uniq(a){var o={},r=[];a.forEach(function(x){if(!o[x]){o[x]=1;r.push(x);}});return r;}
+  function scoreChunk(qk,c){if(!qk.length)return 0;var num=0,den=0;qk.forEach(function(k){var w=idf(k);den+=w;if(c._set[k])num+=w;});return den?num/den:0;}
   function access(r){return DOCS.filter(function(d){return d.roles.indexOf(r)>-1;}).map(function(d){return d.id;});}
   function docById(id){for(var i=0;i<DOCS.length;i++)if(DOCS[i].id===id)return DOCS[i];return null;}
-  function scoreChunk(qt,c){if(!qt.length)return 0;var hit=0;for(var i=0;i<qt.length;i++){if(c._set[qt[i]])hit++;}return hit/qt.length;}
   function retrieve(query,role){
-    var qt=toks(query),acc=access(role);
-    var scored=CHUNKS.map(function(c){return {c:c,s:scoreChunk(qt,c),acc:acc.indexOf(c.doc)>-1};});
+    var qk=uniq(keys(query)),acc=access(role);
+    var scored=CHUNKS.map(function(c){return {c:c,s:scoreChunk(qk,c),acc:acc.indexOf(c.doc)>-1};});
     scored.sort(function(a,b){return b.s-a.s;});
     var bestAcc=null,bestRes=null;
     scored.forEach(function(x){if(x.acc){if(!bestAcc)bestAcc=x;}else{if(!bestRes)bestRes=x;}});
-    return {qt:qt,scored:scored,bestAcc:bestAcc,bestRes:bestRes};
+    return {qk:qk,scored:scored,bestAcc:bestAcc,bestRes:bestRes};
   }
+
+  var EXAMPLES=[
+    "Quelles sont les étapes de la procédure de maintenance ?",
+    "Couple de serrage des borniers de puissance ?",
+    "Comment consigner l'onduleur X7 ?",
+    "Codes défaut de l'onduleur X7 ?",
+    "Composition de l'électrolyte du module B12 ?"
+  ];
 
   var state={role:"tech",busy:false,sum:{q:0,t:0,c:0,l:0}};
   var $=function(s){return document.querySelector(s);};
@@ -368,16 +409,18 @@ footer .fb+.fb{margin-top:10px}
     state.role=r;
     [].forEach.call($("#roles").children,function(b,i){b.setAttribute("aria-pressed",Object.keys(ROLES)[i]===r);});
     $("#roleTag").textContent=ROLES[r].name;renderDocs();$("#stream").innerHTML="";
-    sysMsg("Session ouverte en tant que <strong>"+ROLES[r].name+"</strong>. "+access(r).length+" document(s) accessible(s) sur "+DOCS.length+". Posez une question en saisie libre.");
+    sysMsg("Session ouverte en tant que <strong>"+ROLES[r].name+"</strong>. "+access(r).length+" document(s) accessible(s) sur "+DOCS.length+". Posez une question ou ouvrez un document.");
   }
   function renderDocs(){
     var acc=access(state.role),h=$("#docs");h.innerHTML="";
     DOCS.forEach(function(d){
-      var ok=acc.indexOf(d.id)>-1;var el=document.createElement("div");el.className="doc "+(ok?"ok":"no");
+      var ok=acc.indexOf(d.id)>-1;var el=document.createElement("button");el.type="button";el.className="doc "+(ok?"ok":"no");el.dataset.doc=d.id;
       el.innerHTML='<span class="st">'+(ok?"✓":"✕")+'</span><div class="meta"><b>'+d.t+'<span class="cls '+(d.cls==="conf"?"conf":"int")+'">'+(d.cls==="conf"?"Confidentiel R&D":"Interne")+'</span></b><code>'+d.id+'</code></div>';
       h.appendChild(el);
     });
   }
+  $("#docs").addEventListener("click",function(e){var el=e.target.closest(".doc");if(el&&el.dataset.doc)openDoc(el.dataset.doc,null);});
+
   (function(){var h=$("#chips");EXAMPLES.forEach(function(q){
     var b=document.createElement("button");b.className="chip";b.type="button";b.textContent=q;
     b.addEventListener("click",function(){if(state.busy)return;$("#q").value=q;submit(q);});h.appendChild(b);
@@ -402,12 +445,12 @@ footer .fb+.fb{margin-top:10px}
       m.innerHTML='<div class="av">A</div><div class="bubble deny"><div class="rt">⛔ Accès refusé · contrôle IAM</div>La requête correspond au document <code class="mono">'+dn+'</code> ('+docById(dn).t+'), classé <strong>'+dcls+'</strong>. Votre rôle <strong>'+ROLES[state.role].name+'</strong> n\'y a pas accès. Le filtrage s\'applique <strong>avant</strong> la récupération : aucun appel modèle, coût nul.</div>';
       $("#stream").appendChild(m);scroll();kpis({blocked:true});addLog(state.role,"ACCESS_DENIED",dn,"deny");finish();return;
     }
-    if(!R.bestAcc || R.bestAcc.s<0.34){
+    if(!R.bestAcc || R.bestAcc.s<0.30){
       var mm=document.createElement("div");mm.className="msg a";
       mm.innerHTML='<div class="av">A</div><div class="bubble"><span class="body">Je ne trouve pas de source pertinente au-dessus du seuil de confiance dans le périmètre autorisé. L\'assistant ne devine pas : reformulez ou précisez votre question.</span><div style="margin-top:8px;font-size:11px;color:var(--bronze);font-weight:600">⚠ Hors périmètre · réponse prudente, pas d\'invention.</div></div>';
       $("#stream").appendChild(mm);scroll();
       var lat0=420+Math.round(Math.random()*220);
-      kpis({model:"rapide",lat:lat0,conf:Math.round(R.bestAcc?R.bestAcc.s*100:18),cost:0.0006,tin:estTokens(query,""),tout:0});
+      kpis({model:"rapide",lat:lat0,conf:Math.round(R.bestAcc?R.bestAcc.s*100:16),cost:0.0006,tin:estTokens(query,""),tout:0});
       addLog(state.role,"NOT_FOUND","—","nf");tally(estTokens(query,""),0,0.0006,lat0);finish();return;
     }
     var cites=[R.bestAcc],second=null;
@@ -420,9 +463,9 @@ footer .fb+.fb{margin-top:10px}
     var lat=model==="rapide"?(420+Math.round(Math.random()*240)):(1150+Math.round(Math.random()*520));
     var conf=Math.min(96,Math.round(R.bestAcc.s*100));
     var ans=cites.map(function(x){return x.c.text;}).join("\n\n");
-    var sources=cites.map(function(x){var d=docById(x.c.doc);return '<div class="item"><b>'+d.t.split("·")[0].trim()+'</b> <code>'+x.c.doc+' · '+x.c.loc+'</code><span class="score mono">'+x.s.toFixed(2)+'</span></div>';}).join("");
+    var sources=cites.map(function(x){var d=docById(x.c.doc);return '<button class="item" data-doc="'+x.c.doc+'" data-si="'+x.c.si+'"><b>'+d.t.split("·")[0].trim()+'</b> <code>'+x.c.doc+' · '+x.c.loc+'</code><span class="score mono">'+x.s.toFixed(2)+'</span><span class="open">vérifier</span></button>';}).join("");
     var m=document.createElement("div");m.className="msg a";
-    m.innerHTML='<div class="av">A</div><div class="bubble"><span class="body"></span><div class="exnote"><b>Réponse extractive</b> (démo hors-ligne) : passage source récupéré et cité en direct. En production, le modèle rédige la synthèse à partir de ces sources.</div><div class="src"><div class="src-h">Sources citées · '+cites.length+'</div>'+sources+'</div></div>';
+    m.innerHTML='<div class="av">A</div><div class="bubble"><span class="body"></span><div class="exnote"><b>Réponse extractive</b> (démo hors-ligne) : passage source récupéré et cité en direct, cliquez une source pour l\'ouvrir dans le document. En production, le modèle rédige la synthèse à partir de ces sources.</div><div class="src"><div class="src-h">Sources citées · '+cites.length+'</div>'+sources+'</div></div>';
     $("#stream").appendChild(m);var body=m.querySelector(".body");
     setTimeout(function(){setRoute(model);},200);
     setTimeout(function(){
@@ -455,8 +498,28 @@ footer .fb+.fb{margin-top:10px}
     ul.insertBefore(li,ul.firstChild);
   }
 
+  /* lecteur de document + citations vérifiables */
+  function openDoc(id,si){
+    var d=docById(id),acc=access(state.role).indexOf(id)>-1;
+    $("#dvTitle").textContent=d.t;$("#dvCode").textContent=d.id;var body=$("#dvBody");
+    if(!acc){
+      body.innerHTML='<div class="dv-deny"><div class="rt">⛔ Accès refusé · contrôle IAM</div>Le document <code class="mono">'+d.id+'</code> est classé <strong>'+(d.cls==="conf"?"Confidentiel R&D":"Interne, hors de votre périmètre")+'</strong>. Votre rôle <strong>'+ROLES[state.role].name+'</strong> n\'y a pas accès.<div class="dv-hint">Passez en rôle Ingénieur R&D pour consulter les documents confidentiels.</div></div>';
+      addLog(state.role,"DOC_DENIED",d.id,"deny");
+    }else{
+      body.innerHTML=d.sections.map(function(s){return '<div class="dv-sec"><h5>'+s.loc+' · '+s.title+'</h5><p>'+escapeHtml(s.text)+'</p></div>';}).join("");
+      addLog(state.role,"DOC_OPEN",d.id,"ok");
+      if(si!=null){var secs=body.querySelectorAll(".dv-sec");if(secs[si]){secs[si].classList.add("hl");setTimeout(function(){secs[si].scrollIntoView({block:"center"});},40);}}
+    }
+    $("#docview").hidden=false;
+  }
+  function closeDoc(){$("#docview").hidden=true;}
+  $("#dvClose").addEventListener("click",closeDoc);
+  $("#docview").addEventListener("click",function(e){if(e.target===this)closeDoc();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDoc();});
+  $("#stream").addEventListener("click",function(e){var it=e.target.closest(".item[data-doc]");if(it)openDoc(it.dataset.doc,+it.dataset.si);});
+
   renderDocs();$("#roleTag").textContent=ROLES[state.role].name;
-  sysMsg("Session ouverte en tant que <strong>Technicien terrain</strong>. 3 documents accessibles sur 5. Posez une question en <strong>saisie libre</strong>, ou cliquez un exemple. Essayez aussi une question sur l'<strong>électrolyte</strong> pour voir le contrôle d'accès en action.");
+  sysMsg("Session ouverte en tant que <strong>Technicien terrain</strong>. 3 documents accessibles sur 5. Posez une question en <strong>saisie libre</strong>, cliquez une <strong>source</strong> pour la vérifier, ou ouvrez un document. Essayez une question sur l'<strong>électrolyte</strong> pour voir le contrôle d'accès.");
 })();
 </script>
 </body>

@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="../assets/favicon.svg">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<title>Studentz Doc-to-Data</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* DA commune : premium achromatique (marbre/noir) — identité centrée, couleur réservée aux données */
+:root{
+  --bg:#ffffff; --surface:#f9f9f9; --panel:#f5f5f5; --dark:#111111; --dark-fg:#ffffff;
+  --ink:#1a1a1a; --ink2:#555555; --ink3:#999999; --line:#e0e0e0; --line2:#ececec;
+  --marble1:#f5f5f5; --marble2:#e8e8e8; --marble3:#f0f0f0; --marble4:#d8d8d8;
+  --raw-bg:#14181f; --raw-fg:#c7d0e0; --raw-dim:#6b7688; --raw-key:#b8964a;
+  --nav:#1C3557; --nav2:#1A5276; --green:#1B5E3B; --green2:#2E7D52; --bord:#7D1F2A; --bronze:#7B5E3A; --slate:#3C4F63; --or:#9a7b33;
+  --nav-s:#eaeef4; --green-s:#e8f1ec; --bronze-s:#f1ece3; --slate-s:#edeff3;
+  --shadow:0 1px 2px rgba(17,17,17,.05),0 10px 34px rgba(17,17,17,.07);
+  --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#888888; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --raw-bg:#0a0d13; --raw-fg:#b9c4da; --raw-dim:#5c6678; --raw-key:#cdb05e;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bronze-s:#201c12; --slate-s:#191f28;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#888888; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --raw-bg:#0a0d13; --raw-fg:#b9c4da; --raw-dim:#5c6678; --raw-key:#cdb05e;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bronze-s:#201c12; --slate-s:#191f28;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:500;text-transform:uppercase;letter-spacing:.13em;margin:0;text-wrap:balance}
+p{margin:0}
+.tnum{font-variant-numeric:tabular-nums}
+.marble{background:linear-gradient(135deg,var(--marble1) 0%,var(--marble2) 25%,var(--marble3) 40%,var(--marble4) 55%,var(--marble3) 70%,var(--marble1) 100%)}
+
+/* header */
+header.brand{background:var(--dark);color:var(--dark-fg);text-align:center;padding-block:18px;position:relative;z-index:3}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:9;background:var(--dark)}
+.wordmark{font-family:var(--serif);text-transform:uppercase;font-size:clamp(15px,3vw,19px);letter-spacing:.26em;font-weight:500}
+.submark{font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#9a9a9a;margin-top:6px}
+.theme-btn{position:absolute;top:50%;right:max(16px,env(safe-area-inset-right,0px));transform:translateY(-50%);appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:33px;height:33px;border-radius:50%;cursor:pointer;font-size:13px}
+.theme-btn:hover{border-color:#666;color:#fff}
+
+/* hero */
+.hero{text-align:center;padding-block:48px 40px;border-bottom:1px solid var(--line)}
+.kicker{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.hero h1{font-size:clamp(32px,6.4vw,56px);letter-spacing:.09em;margin-top:16px;color:var(--ink)}
+.hero .sub{font-family:var(--sans);font-size:clamp(14.5px,2.2vw,17px);color:var(--ink2);max-width:66ch;margin:18px auto 0;text-transform:none;letter-spacing:0}
+.hero .sub b{color:var(--ink);font-weight:600}
+.cred{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+.cred .c{background:var(--bg);padding:16px 10px;text-align:center}
+.cred .n{font-family:var(--serif);font-size:clamp(19px,3.3vw,26px);font-weight:600;letter-spacing:.02em}
+.cred .n.nv{color:var(--nav)} .cred .n.g{color:var(--green)} .cred .n.b{color:var(--bronze)}
+.cred .l{font-family:var(--sans);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+
+/* section */
+section{padding-block:44px}
+.shead{text-align:center;margin-bottom:6px}
+.shead .st{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.shead h2{font-size:clamp(22px,3.4vw,30px);letter-spacing:.09em;margin-top:11px}
+.rule{width:52px;height:1px;background:var(--ink);margin:15px auto 0}
+.shead p{font-family:var(--sans);text-transform:none;letter-spacing:0;color:var(--ink2);max-width:64ch;margin:13px auto 0;font-size:14.5px}
+
+/* atelier Avant/Pendant/Après */
+.atelier-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+.atelier-top label{font-size:12px;color:var(--ink3);letter-spacing:.04em;text-transform:uppercase}
+select.ex{appearance:none;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:0;padding:8px 32px 8px 12px;cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
+.run{appearance:none;cursor:pointer;font-family:var(--sans);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:11.5px;color:var(--bg);background:var(--ink);border:1px solid var(--ink);padding:9px 18px;display:inline-flex;align-items:center;gap:8px}
+.run:hover{background:transparent;color:var(--ink)} .run:disabled{opacity:.55;cursor:default}
+.run svg{width:13px;height:13px}
+
+.stages{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;margin-top:26px;align-items:stretch}
+.stage{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0;opacity:.6;transition:opacity .35s}
+.stage.on{opacity:1}
+.stage .sh{display:flex;align-items:center;gap:9px;padding:12px 15px;border-bottom:1px solid var(--line);background:var(--panel)}
+.stage .sh .sl{font-family:var(--serif);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.stage .sh .tag{font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-left:auto}
+.stage.before .sh .sl{color:var(--bord)} .stage.during .sh .sl{color:var(--nav)} .stage.after .sh .sl{color:var(--green)}
+.stage .sbody{padding:15px;flex:1}
+.arrowcol{display:flex;align-items:center;justify-content:center;padding:0 8px;color:var(--ink3);font-size:18px}
+.arrowcol .a{transition:color .35s} .arrowcol.on .a{color:var(--nav)}
+
+.rawdoc{font-family:var(--mono);font-size:11px;line-height:1.75;color:var(--raw-fg);background:var(--raw-bg);padding:14px;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow:auto;border:1px solid var(--line)}
+.rawdoc .d{color:var(--raw-dim)} .rawdoc .k{color:var(--raw-key)}
+.jsonbox{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--ink2);background:var(--panel);border:1px solid var(--line);padding:13px;max-height:360px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+.jsonbox .jk{color:var(--nav)} .jsonbox .jv{color:var(--green2)} .jsonbox .jp{color:var(--ink3)}
+.during-note{font-family:var(--sans);font-size:11.5px;color:var(--ink2);margin-top:11px;padding-top:11px;border-top:1px dashed var(--line);text-transform:none;letter-spacing:0}
+.during-note b{color:var(--nav);font-weight:600}
+
+/* fiche Airtable */
+.atrec{display:flex;flex-direction:column;gap:11px}
+.atrec .ahead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.acode{font-family:var(--mono);font-size:11px;font-weight:600;color:#fff;background:var(--nav);padding:3px 8px}
+.asig{font-family:var(--mono);font-size:11px;color:var(--ink2);border:1px solid var(--line);padding:3px 8px}
+.atrec h3{font-family:var(--serif);font-size:15px;letter-spacing:.04em;text-transform:none;font-weight:600;line-height:1.25}
+.afield{display:grid;grid-template-columns:96px 1fr;gap:9px;padding-top:9px;border-top:1px solid var(--line2);font-size:12.5px;text-transform:none;letter-spacing:0}
+.afield .ak{font-family:var(--sans);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);font-weight:600;padding-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11px;padding:3px 8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);white-space:nowrap}
+.chip.cy{background:var(--nav-s);border-color:transparent;color:var(--nav);font-family:var(--mono);font-size:10.5px}
+.chip.vi{background:var(--green-s);border-color:transparent;color:var(--green)}
+.chip.dp{font-family:var(--mono);font-size:10px;color:var(--ink2);background:var(--panel)}
+.acount{font-family:var(--mono);font-size:11px;color:var(--ink2);background:var(--panel);border:1px solid var(--line);padding:1px 7px}
+
+/* workflow */
+.wfwrap{margin-top:24px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:20px 16px}
+.wflane{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding-bottom:6px}
+.wnode{flex:0 0 auto;width:118px;text-align:center;position:relative;padding:0 3px}
+.wnode .wd{width:40px;height:40px;margin:0 auto 7px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;color:var(--nav)}
+.wnode.ai .wd{border-color:var(--nav);background:var(--nav-s)} .wnode.db .wd{border-color:var(--green);background:var(--green-s);color:var(--green)}
+.wnode .wd svg{width:18px;height:18px}
+.wnode .wt{font-family:var(--sans);font-size:10.5px;font-weight:600;line-height:1.3;text-transform:none;letter-spacing:0}
+.wnode .ws{font-family:var(--mono);font-size:8.5px;color:var(--ink3);margin-top:2px}
+.wnode:not(:last-child)::after{content:"";position:absolute;top:20px;right:-2px;width:10px;height:1px;background:var(--line)}
+.wfbranch-h{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);text-align:center;margin:22px 0 12px;font-weight:500}
+.branches{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.branch{border:1px solid var(--line);background:var(--bg);padding:12px}
+.branch .bt{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--nav);margin-bottom:9px}
+.branch .bstep{font-family:var(--sans);font-size:11px;color:var(--ink2);padding:4px 0;display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0}
+.branch .bstep .bi{font-family:var(--mono);font-size:9px;color:var(--ink3);border:1px solid var(--line);width:16px;height:16px;display:grid;place-items:center;flex:none}
+
+/* table airtable */
+.atwrap{margin-top:22px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.attop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
+.attop .db{font-family:var(--mono);font-size:11.5px;color:var(--ink2);font-weight:500}
+.attop .db b{color:var(--nav)}
+.search{margin-left:auto;display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);padding:6px 10px;min-width:170px}
+.search svg{width:14px;height:14px;color:var(--ink3);flex:none}
+.search input{border:none;background:none;outline:none;font-family:var(--sans);font-size:13px;color:var(--ink);width:100%}
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:12.5px}
+thead th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);font-weight:600;padding:10px 13px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface)}
+tbody td{padding:10px 13px;border-bottom:1px solid var(--line2);vertical-align:middle;text-transform:none}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--panel)}
+tbody tr.open{background:var(--nav-s)}
+td .code{font-family:var(--mono);font-size:11px;color:var(--nav);font-weight:600}
+td .src{font-family:var(--mono);font-size:9px;padding:1px 5px;border:1px solid var(--line);color:var(--ink3);margin-left:6px}
+td .src.real{color:var(--green);border-color:color-mix(in srgb,var(--green) 40%,transparent)}
+.mc{font-family:var(--mono);font-size:10px;color:var(--ink2);background:var(--panel);border:1px solid var(--line2);padding:1px 5px;margin-right:3px}
+.rowdet td{background:var(--bg);padding:0}
+.rowdet .inner{padding:14px 15px;display:flex;flex-wrap:wrap;gap:20px}
+.rowdet .col{min-width:150px} .rowdet .col .k{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:4px}
+.rowdet .col .v{font-size:12px;color:var(--ink)}
+.atcount{font-family:var(--mono);font-size:11px;color:var(--ink3);padding:9px 14px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{background:var(--dark);color:#9a9a9a;text-align:center;padding-block:32px 40px}
+footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:15px;letter-spacing:.24em}
+footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;margin-top:7px;color:#bfbfbf}
+footer .stack{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:16px}
+footer .stack span{font-family:var(--mono);font-size:10.5px;color:#b4b4b4;border:1px solid #333;padding:3px 9px}
+footer .fnote{font-family:var(--sans);font-size:10.5px;color:#6f6f6f;max-width:80ch;margin:16px auto 0;line-height:1.7}
+
+@media (max-width:820px){
+  .stages{grid-template-columns:1fr}
+  .arrowcol{padding:8px 0;transform:rotate(90deg)}
+  .branches{grid-template-columns:1fr}
+}
+@media (max-width:560px){.cred{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="brand"><a href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a>
+  <div class="wordmark">Baba Moustapha Amadou</div>
+  <div class="submark">Architecte de solutions IA · Démonstrateur</div>
+  <button class="theme-btn" id="themeBtn" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>
+</header>
+
+<div class="marble"><div class="wrap">
+  <div class="hero">
+    <div class="kicker">Solution hybride · GenAI + Automatisation</div>
+    <h1>Doc-to-Data</h1>
+    <p class="sub">Transformer un annuaire PDF non structuré en base de données propre, dédoublonnée et codifiée. La base complète couvre <b>plus de 10 000 entrées sur 5 pays</b>. Cette démonstration tourne sur un extrait de quelques écoles du Cameroun, issu de l'annuaire public <b>Student's Mag 2020</b>.</p>
+    <div class="cred">
+      <div class="c"><div class="n nv tnum">10 000+</div><div class="l">entrées · base complète</div></div>
+      <div class="c"><div class="n tnum">5</div><div class="l">pays couverts</div></div>
+      <div class="c"><div class="n g tnum">20</div><div class="l">champs par fiche</div></div>
+      <div class="c"><div class="n b tnum">4</div><div class="l">référentiels codifiés</div></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+  <!-- ÉTAPE 1 : AVANT / PENDANT / APRÈS -->
+  <section>
+    <div class="shead">
+      <div class="st">La transformation</div>
+      <h2>Avant, pendant, après</h2>
+      <div class="rule"></div>
+      <p>Le texte brut sort du PDF mélangé et dispersé. L'IA le lit sous un schéma strict, puis la chaîne dédoublonne et codifie. Le résultat entre dans Airtable.</p>
+    </div>
+    <div class="atelier-top">
+      <label for="exSel">Établissement</label>
+      <select class="ex" id="exSel" aria-label="Choisir un établissement"></select>
+      <button class="run" id="runBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 3l14 9-14 9z"/></svg>
+        <span id="runLbl">Rejouer</span>
+      </button>
+    </div>
+
+    <div class="stages" id="stages">
+      <div class="stage before" data-s="0">
+        <div class="sh"><span class="sl">Avant</span><span class="tag">PDF brut</span></div>
+        <div class="sbody"><pre class="rawdoc" id="rawDoc"></pre></div>
+      </div>
+      <div class="arrowcol" data-a="0"><span class="a">&rsaquo;</span></div>
+      <div class="stage during" data-s="1">
+        <div class="sh"><span class="sl">Pendant</span><span class="tag">gpt-4o-mini</span></div>
+        <div class="sbody">
+          <div class="jsonbox" id="jsonBox"></div>
+          <p class="during-note"><b>Schéma strict</b> de 20 champs. L'IA conserve la langue, ne traduit pas, sépare diplômes et certifications, n'invente rien.</p>
+        </div>
+      </div>
+      <div class="arrowcol" data-a="1"><span class="a">&rsaquo;</span></div>
+      <div class="stage after" data-s="2">
+        <div class="sh"><span class="sl">Après</span><span class="tag">Airtable</span></div>
+        <div class="sbody"><div class="atrec" id="atrec"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉTAPE 2 : WORKFLOW -->
+  <section>
+    <div class="shead">
+      <div class="st">La mécanique</div>
+      <h2>Le workflow n8n complet</h2>
+      <div class="rule"></div>
+      <p>Une chaîne principale pour structurer chaque fiche, puis trois branches qui codifient les référentiels partagés.</p>
+    </div>
+    <div class="wfwrap">
+      <div class="wflane" id="wflane"></div>
+      <div class="wfbranch-h">Branches de codification (référentiels partagés)</div>
+      <div class="branches" id="branches"></div>
+    </div>
+  </section>
+
+  <!-- ÉTAPE 3 : AIRTABLE -->
+  <section>
+    <div class="shead">
+      <div class="st">Le résultat</div>
+      <h2>La base dans Airtable</h2>
+      <div class="rule"></div>
+      <p>Une base requêtable, pas un fichier figé. Cherchez, puis dépliez une ligne pour voir la fiche complète.</p>
+    </div>
+    <div class="atwrap">
+      <div class="attop">
+        <span class="db">Base <b>DATA MAG_DB</b> · table Écoles</span>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="searchInp" placeholder="Rechercher…" aria-label="Rechercher">
+        </div>
+      </div>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Code</th><th>Nom complet</th><th>Ville</th><th>Cycles</th><th>Volume</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="atcount" id="atCount"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="fm">Baba Moustapha Amadou</div>
+  <div class="fs">Studentz · Doc-to-Data</div>
+  <div class="stack"><span>n8n</span><span>gpt-4o-mini</span><span>Structured Output</span><span>Airtable</span><span>JavaScript</span></div>
+  <p class="fnote">Démonstration à partir d'un extrait de l'annuaire public Student's Mag 2020 (quelques écoles du Cameroun), sous-ensemble d'une base multi-pays de plus de 10 000 entrées. Les vues du workflow et de la base reproduisent fidèlement la solution réelle. Aucune donnée personnelle, aucun identifiant d'API n'est exposé.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var r=document.documentElement,c=r.getAttribute('data-theme');
+    var d=c?c==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+    r.setAttribute('data-theme',d?'light':'dark');
+  });
+
+  /* icônes workflow */
+  function ic(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+  var ICN={
+    form:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+    text:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+    split:'<path d="M8 3v18M3 8h5M3 16h5M16 3l5 5-5 5M21 8h-8"/>',
+    items:'<rect x="3" y="4" width="18" height="4"/><rect x="3" y="10" width="18" height="4"/><rect x="3" y="16" width="18" height="4"/>',
+    ai:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+    filter:'<path d="M3 4h18l-7 8v7l-4-2v-5z"/>',
+    merge:'<path d="M6 3v6a4 4 0 0 0 4 4h8M6 21v-6M18 9l3 4-3 4"/>',
+    code:'<path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/>',
+    db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'
+  };
+  var WF=[
+    {k:'form',t:'Formulaire',s:'dépôt PDF'},
+    {k:'text',t:'Extraction',s:'texte brut'},
+    {k:'split',t:'Découpe',s:'séparateur'},
+    {k:'items',t:'Séparation',s:'1 item/bloc'},
+    {k:'ai',t:'Extraction IA',s:'gpt-4o-mini',ai:1},
+    {k:'filter',t:'Filtrage',s:'fiches valides'},
+    {k:'merge',t:'Dédoublonnage',s:'clé normalisée'},
+    {k:'code',t:'Code ECL',s:'tri + n°'},
+    {k:'db',t:'Upsert',s:'DATA MAG_DB',db:1}
+  ];
+  document.getElementById('wflane').innerHTML=WF.map(function(n){
+    return '<div class="wnode'+(n.ai?' ai':'')+(n.db?' db':'')+'"><div class="wd">'+ic(ICN[n.k])+'</div><div class="wt">'+n.t+'</div><div class="ws">'+n.s+'</div></div>';
+  }).join('');
+  var BR=[
+    {t:'Villes · VIL',steps:['Recherche Airtable','Attribution code VILn','Mise à jour']},
+    {t:'Diplômes · DPL',steps:['Recherche Airtable','Attribution code DPLn','Mise à jour']},
+    {t:'Certifications · CER',steps:['Recherche Airtable','Attribution code CERn','Mise à jour']}
+  ];
+  document.getElementById('branches').innerHTML=BR.map(function(b){
+    return '<div class="branch"><div class="bt">'+b.t+'</div>'+b.steps.map(function(s,i){
+      return '<div class="bstep"><span class="bi">'+(i+1)+'</span>'+s+'</div>';}).join('')+'</div>';
+  }).join('');
+
+  /* exemples (données réelles annuaire 2020) */
+  var EX=[
+    {id:'est',label:'École Supérieure Technique La Salle (EST)',
+     raw:'<span class="d">Edition2020 · www.studentsmag.net</span>\n\nECOLE SUPERIEURE TECHNIQUE LA SALLE  (EST)\nDouala, Cite des Palmiers\n<span class="k">►</span>Cycles : BTS / Licence / Master\nBTS : Travaux Publics, Electrotechnique, Telecommunication,\nGeometre Topographe, Construction Metallique, Chaudronnerie\net Soudure, Gestion Logistique et Transport, Informatique\nIndustrielle et Automatisme ...\nLicence : Electrotechnique, Reseaux et Securite, Transport\net Prestations, Controle Industriel et Regulation Automatique\nPartenaires : FEC / ENEO / UNILASALLE / College de la Salle\nCertifications : Comptabilite, Developpement Web, Froid et\nClimatisation, Soudage-Montage, CAO Solidworks 3D ...\nRentree : Octobre\n<span class="k">&lt;b&gt;</span>Particularites : Acces au Wifi ; Mediatheque ;\nPostes Informatiques.<span class="k">&lt;/b&gt;</span>',
+     json:[['nom_complet','"Ecole Superieure Technique La Salle"'],['sigle','"EST"'],['cycles','["BTS","LICENCE","MASTER"]'],['diplomes_offerts','[ 23 items ]'],['diplomes_entree_requis','["Bac D","Bac C","GCE A Level"]'],['partenaires','["FEC","ENEO","UNILASALLE", ...]'],['certifications','[ 20 items ]'],['date_rentree','"Octobre"'],['ville','["Douala"]'],['particularites','"Wifi ; Mediatheque ; Postes..."']],
+     fiche:{code:'ECL6',sigle:'EST',nom:'École Supérieure Technique La Salle',ville:['Douala'],cycles:['BTS','LICENCE','MASTER'],dpl:['DPL14','DPL15','DPL16','DPL25','DPL27'],dipln:23,req:['Bac D','Bac C','GCE A Level'],part:['FEC','ENEO','UNILASALLE','Collège de la Salle'],certn:20,rentree:'Octobre',part2:'Wifi ; Médiathèque ; Postes informatiques'}},
+    {id:'ciepo',label:'Centre International des Études Polytechniques d\'Obala (CIEPO)',
+     raw:'<span class="d">Edition2020 · www.studentsmag.net</span>\n\nCENTRE INTERNATIONAL DES ETUDES POLYTECHNIQUES\nD’OBALA (CIEPO), Obala\nEtablissement prive d’enseignement superieur offrant des\nformations techniques et professionnelles en ingenierie,\ngestion et sciences appliquees.\nCycles : Cycle BTS / Cycle Licence pro / Cycle Master\nFilieres : BTS Genie civil, Licence Pro Genie rural,\nMaster Pro Electrotechnique ...\nAdmission : etude de dossier ; concours ecrit ; entretien oral\nPartenaires : Universite Hassan II, CISCO Academy, ONUDI\nRentree : Septembre\nPromoteur : ESSIMI MENYE',
+     json:[['nom_complet','"Centre International des Etudes Polytechniques d’Obala"'],['sigle','"CIEPO"'],['cycles','["BTS","LICENCE","MASTER"]'],['diplomes_offerts','["BTS Genie civil","Licence Pro Genie rural", ...]'],['conditions_entree','["Etude de dossier","Concours","Entretien"]'],['partenaires','["Universite Hassan II","CISCO Academy","ONUDI"]'],['date_rentree','"Septembre"'],['ville','["Obala"]'],['promoteur','"ESSIMI MENYE"']],
+     fiche:{code:'ECL4',sigle:'CIEPO',nom:'Centre International des Études Polytechniques d\'Obala',ville:['Obala'],cycles:['BTS','LICENCE','MASTER'],dpl:['Génie civil','Génie rural','Electrotech.'],dipln:3,req:['Bac scientifique','BTS / DUT'],part:['Université Hassan II','CISCO Academy','ONUDI'],certn:3,rentree:'Septembre',part2:'Orientation pratique, pédagogie par projet'}},
+  ];
+
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  var rawDoc=document.getElementById('rawDoc'),jsonBox=document.getElementById('jsonBox'),atrec=document.getElementById('atrec');
+
+  function renderJson(rows){
+    var s='{\n';
+    s+=rows.map(function(r){return '  <span class="jk">"'+r[0]+'"</span>: <span class="jv">'+esc(r[1])+'</span>';}).join(',\n');
+    s+='\n}';
+    return s;
+  }
+  function renderFiche(f){
+    function row(k,v){return '<div class="afield"><div class="ak">'+k+'</div><div>'+v+'</div></div>';}
+    return '<div class="ahead"><span class="acode">'+f.code+'</span><span class="asig">'+esc(f.sigle)+'</span></div>'+
+      '<h3>'+esc(f.nom)+'</h3>'+
+      row('Ville',f.ville.map(function(v){return '<span class="chip vi">'+esc(v)+'</span>';}).join(' '))+
+      row('Cycles','<div class="chips">'+f.cycles.map(function(c){return '<span class="chip cy">'+c+'</span>';}).join('')+'</div>')+
+      row('Diplômes','<div class="chips">'+f.dpl.map(function(d){return '<span class="chip dp">'+esc(d)+'</span>';}).join('')+'<span class="acount">'+f.dipln+' au total</span></div>')+
+      row('Requis','<div class="chips">'+f.req.map(function(d){return '<span class="chip">'+esc(d)+'</span>';}).join('')+'</div>')+
+      row('Partenaires','<div class="chips">'+f.part.map(function(d){return '<span class="chip">'+esc(d)+'</span>';}).join('')+'</div>')+
+      row('Certif.','<span class="acount">'+f.certn+' certifiantes</span>')+
+      row('Rentrée','<span class="chip">'+esc(f.rentree)+'</span>')+
+      row('Plus','<span style="color:var(--ink2);font-size:11.5px">'+esc(f.part2)+'</span>');
+  }
+
+  var sel=document.getElementById('exSel');
+  sel.innerHTML=EX.map(function(e,i){return '<option value="'+i+'">'+esc(e.label)+'</option>';}).join('');
+  var cur=0;
+  function load(i){cur=i;rawDoc.innerHTML=EX[i].raw;jsonBox.innerHTML=renderJson(EX[i].json);atrec.innerHTML=renderFiche(EX[i].fiche);}
+  sel.addEventListener('change',function(){reset();load(+sel.value);setTimeout(run,120);});
+
+  /* animation 3 étapes */
+  var stages=[].slice.call(document.querySelectorAll('.stage')),arrows=[].slice.call(document.querySelectorAll('.arrowcol'));
+  var runBtn=document.getElementById('runBtn'),runLbl=document.getElementById('runLbl'),tms=[];
+  function reset(){tms.forEach(clearTimeout);tms=[];stages.forEach(function(s){s.classList.remove('on');});arrows.forEach(function(a){a.classList.remove('on');});}
+  function run(){
+    reset();runBtn.disabled=true;runLbl.textContent='…';
+    [0,1,2].forEach(function(i){
+      tms.push(setTimeout(function(){
+        stages[i].classList.add('on'); if(i>0)arrows[i-1].classList.add('on');
+      },i*520));
+    });
+    tms.push(setTimeout(function(){runBtn.disabled=false;runLbl.textContent='Rejouer';},3*520));
+  }
+  runBtn.addEventListener('click',run);
+
+  /* table airtable */
+  var ROWS=[
+    {code:'ECL6',nom:'École Supérieure Technique La Salle',sig:'EST',ville:'Douala',cy:['BTS','LIC','MAS'],dipl:23,cert:20,real:1,rentree:'Octobre',part:['FEC','ENEO','UNILASALLE','Collège de la Salle']},
+    {code:'ECL4',nom:'Centre Int. des Études Polytechniques d\'Obala',sig:'CIEPO',ville:'Obala',cy:['BTS','LIC','MAS'],dipl:3,cert:3,real:1,rentree:'Septembre',part:['Université Hassan II','CISCO Academy','ONUDI']},
+    {code:'ECL9',nom:'Institut Africain d\'Informatique',sig:'IAI',ville:'Yaoundé',cy:['LIC','MAS'],dipl:11,cert:7,real:0,rentree:'Octobre',part:['CEMAC','Oracle Academy']},
+    {code:'ECL12',nom:'Institut Universitaire de la Côte',sig:'IUC',ville:'Douala',cy:['BTS','LIC','MAS'],dipl:17,cert:9,real:0,rentree:'Octobre',part:['AUF']},
+    {code:'ECL15',nom:'Institut Supérieur de Technologie',sig:'IST',ville:'Bafoussam',cy:['BTS','LIC'],dipl:14,cert:8,real:0,rentree:'Octobre',part:['UDs']}
+  ];
+  var tbody=document.getElementById('tbody'),atCount=document.getElementById('atCount'),openC=null;
+  var CYL={BTS:'BTS',LIC:'Licence',MAS:'Master',ING:'Ingénieur'};
+  function rows(q){
+    q=(q||'').toLowerCase().trim();
+    var sh=ROWS.filter(function(r){return !q||(r.nom+' '+r.sig+' '+r.ville+' '+r.code).toLowerCase().indexOf(q)>=0;});
+    tbody.innerHTML=sh.map(function(r){
+      var cy=r.cy.map(function(c){return '<span class="mc">'+c+'</span>';}).join('');
+      var src=r.real?'<span class="src real">annuaire 2020</span>':'<span class="src">illustratif</span>';
+      var m='<tr data-c="'+r.code+'" class="'+(r.code===openC?'open':'')+'"><td><span class="code">'+r.code+'</span></td>'+
+        '<td>'+esc(r.nom)+' <span style="color:var(--ink3);font-size:11px">'+esc(r.sig)+'</span>'+src+'</td>'+
+        '<td style="color:var(--ink2)">'+esc(r.ville)+'</td><td>'+cy+'</td>'+
+        '<td class="tnum"><span class="mc">'+r.dipl+' dipl.</span><span class="mc">'+r.cert+' cert.</span></td></tr>';
+      if(r.code===openC){
+        m+='<tr class="rowdet"><td colspan="5"><div class="inner">'+
+          '<div class="col"><div class="k">Cycles</div><div class="v">'+r.cy.map(function(c){return CYL[c];}).join(' · ')+'</div></div>'+
+          '<div class="col"><div class="k">Rentrée</div><div class="v">'+esc(r.rentree)+'</div></div>'+
+          '<div class="col"><div class="k">Partenaires</div><div class="v">'+r.part.map(esc).join(', ')+'</div></div>'+
+          '<div class="col"><div class="k">Volume</div><div class="v">'+r.dipl+' diplômes · '+r.cert+' certifications</div></div></div></td></tr>';
+      }
+      return m;
+    }).join('');
+    atCount.textContent=sh.length+' / '+ROWS.length+' fiches · 2 réelles (annuaire 2020), le reste illustratif';
+  }
+  tbody.addEventListener('click',function(e){var tr=e.target.closest('tr[data-c]');if(!tr)return;openC=openC===tr.dataset.c?null:tr.dataset.c;rows(document.getElementById('searchInp').value);});
+  document.getElementById('searchInp').addEventListener('input',function(){openC=null;rows(this.value);});
+
+  load(0);rows('');run();
+})();
+</script>
+</body>
+</html>

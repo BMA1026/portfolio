@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="../assets/favicon.svg">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<title>ATLAS Industriel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* DA commune : premium achromatique (marbre/noir), couleur réservée aux données. App : gouvernance / assistant / observabilité */
+:root{
+  --bg:#ffffff; --surface:#f9f9f9; --panel:#f5f5f5; --dark:#111111; --dark-fg:#ffffff;
+  --ink:#1a1a1a; --ink2:#555555; --ink3:#737373; --line:#e0e0e0; --line2:#ececec;
+  --marble1:#f5f5f5; --marble2:#e8e8e8; --marble3:#f0f0f0; --marble4:#d8d8d8;
+  --console:#111111; --console-fg:#c7d0e0; --console-dim:#7f8aa0; --console-line:rgba(255,255,255,.09);
+  --nav:#1C3557; --nav-s:#eaeef4; --green:#1B5E3B; --green-s:#e8f1ec; --bronze:#7B5E3A; --bronze-s:#f1ece3; --bord:#7D1F2A; --bord-s:#f6ecee; --slate:#3C4F63;
+  --shadow:0 1px 2px rgba(17,17,17,.05),0 10px 30px rgba(17,17,17,.06);
+  --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#8f8f8f; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --console:#060606; --console-fg:#c7d0e0; --console-dim:#6f7a90; --console-line:rgba(255,255,255,.08);
+  --nav:#5a82c0; --nav-s:#17202f; --green:#5aa77e; --green-s:#13241c; --bronze:#b89a6a; --bronze-s:#201c12; --bord:#c87682; --bord-s:#241416; --slate:#8094ac;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 34px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#8f8f8f; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --console:#060606; --console-fg:#c7d0e0; --console-dim:#6f7a90; --console-line:rgba(255,255,255,.08);
+  --nav:#5a82c0; --nav-s:#17202f; --green:#5aa77e; --green-s:#13241c; --bronze:#b89a6a; --bronze-s:#201c12; --bord:#c87682; --bord-s:#241416; --slate:#8094ac;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 34px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:14px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}
+
+/* header */
+header.brand{background:var(--dark);color:var(--dark-fg);text-align:center;padding-block:16px;position:relative;z-index:10}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--dark);z-index:11}
+.wordmark{font-family:var(--serif);text-transform:uppercase;font-size:clamp(15px,3vw,19px);letter-spacing:.26em;font-weight:500}
+.submark{font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#9a9a9a;margin-top:6px}
+.theme-btn{position:absolute;top:50%;right:max(16px,env(safe-area-inset-right,0px));transform:translateY(-50%);appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:33px;height:33px;border-radius:50%;font-size:13px}
+.theme-btn:hover{border-color:#666;color:#fff}
+
+/* intro marbre */
+.intro{text-align:center;padding-block:40px 30px;border-bottom:1px solid var(--line)}
+.intro .eyebrow{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.intro h2{font-family:var(--serif);font-size:clamp(30px,6vw,52px);letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin:14px 0 0}
+.intro .plain{font-family:var(--sans);font-size:clamp(14px,2.1vw,16.5px);color:var(--ink2);max-width:66ch;margin:16px auto 0}
+.intro .plain b{color:var(--ink);font-weight:600}
+.intro .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+.intro .mchip{font-family:var(--sans);font-size:11px;letter-spacing:.02em;color:var(--ink2);background:var(--panel);border:1px solid var(--line);padding:6px 12px}
+.intro .mchip.demo{color:var(--bronze);background:var(--bronze-s);border-color:color-mix(in srgb,var(--bronze) 30%,transparent);font-weight:600;text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+
+/* architecture */
+.arch{background:var(--surface);border:1px solid var(--line);padding:16px;margin-top:22px;box-shadow:var(--shadow)}
+.arch-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+.arch-top h3{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);font-weight:600}
+.arch-top span{font-family:var(--sans);font-size:12px;color:var(--ink2)}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.node{flex:1 1 120px;min-width:0;background:var(--bg);border:1px solid var(--line);padding:10px 11px;display:flex;flex-direction:column;gap:3px}
+.node b{font-family:var(--sans);font-size:12px;font-weight:600;line-height:1.25}
+.node small{font-size:10px;color:var(--ink3);font-family:var(--mono)}
+.node.k{border-color:var(--nav);background:var(--nav-s)}
+.arrow{flex:none;align-self:center;color:var(--ink3);padding:0 6px;font-size:14px}
+.ntag{display:inline-block;margin-top:5px;font-family:var(--mono);font-size:9px;font-weight:500;color:var(--nav);background:var(--bg);border:1px solid var(--line);padding:2px 6px;align-self:flex-start;letter-spacing:.02em}
+
+/* grid */
+.grid{display:grid;grid-template-columns:260px 1fr 300px;gap:16px;margin:16px 0 30px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
+.panel-h{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;background:var(--panel)}
+.panel-h h3{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:600}
+.panel-h .ic{color:var(--nav);font-size:12px}
+.panel-b{padding:14px}
+.sub{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:16px 0 8px;font-weight:600}
+
+/* governance */
+.seg{display:flex;flex-direction:column;gap:6px}
+.seg button{text-align:left;background:var(--bg);border:1px solid var(--line);padding:9px 11px;color:var(--ink);display:flex;flex-direction:column;gap:2px;transition:.12s}
+.seg button b{font-family:var(--sans);font-size:12.5px;font-weight:600}
+.seg button small{font-size:11px;color:var(--ink3)}
+.seg button[aria-pressed="true"]{border-color:var(--nav);background:var(--nav-s);box-shadow:inset 0 0 0 1px var(--nav)}
+.doc{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-top:1px solid var(--line2)}
+.doc:first-of-type{border-top:0}
+.doc .st{flex:none;width:18px;height:18px;display:grid;place-items:center;margin-top:1px;font-size:11px;font-weight:700}
+.doc.ok .st{background:var(--green-s);color:var(--green)}
+.doc.no .st{background:var(--bord-s);color:var(--bord)}
+.doc .meta{min-width:0}
+.doc .meta b{display:block;font-family:var(--sans);font-size:12px;font-weight:500;line-height:1.35}
+.doc .meta code{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.cls{display:inline-block;font-family:var(--sans);font-size:9px;font-weight:600;padding:1px 5px;margin-left:4px;letter-spacing:.02em;text-transform:uppercase}
+.cls.int{background:var(--panel);color:var(--ink2);border:1px solid var(--line)}
+.cls.conf{background:var(--bord-s);color:var(--bord)}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:10.5px;font-weight:600;background:var(--green-s);color:var(--green);padding:4px 8px}
+.badge.n{background:var(--panel);color:var(--ink2)}
+
+/* chat */
+.chat{display:flex;flex-direction:column;min-height:540px}
+.stream{flex:1 1 auto;padding:16px;display:flex;flex-direction:column;gap:14px;overflow:auto}
+.msg{display:flex;gap:10px;max-width:92%}
+.msg .av{flex:none;width:28px;height:28px;display:grid;place-items:center;font-size:12px;font-weight:600;font-family:var(--serif)}
+.msg.u{align-self:flex-end;flex-direction:row-reverse}
+.msg.u .av{background:var(--nav);color:#fff}
+.msg.a .av{background:var(--nav-s);color:var(--nav);border:1px solid var(--nav)}
+.bubble{background:var(--bg);border:1px solid var(--line);padding:11px 13px;font-size:13.5px;line-height:1.6}
+.bubble .body{white-space:pre-wrap}
+.msg.u .bubble{background:var(--nav);color:#fff;border-color:var(--nav)}
+.bubble.deny{background:var(--bord-s);border-color:color-mix(in srgb,var(--bord) 35%,transparent)}
+.bubble strong{font-weight:600}
+.bubble .rt{display:flex;align-items:center;gap:6px;font-family:var(--sans);font-size:11px;color:var(--bord);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}
+.exnote{margin-top:9px;font-family:var(--sans);font-size:10.5px;color:var(--ink3);border-top:1px dashed var(--line);padding-top:8px;line-height:1.5}
+.exnote b{color:var(--ink2);font-weight:600}
+.src{margin-top:11px;display:flex;flex-direction:column;gap:6px}
+.src-h{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:600}
+.src .item{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);padding:7px 9px;font-size:12px;color:var(--ink)}
+.src .item b{font-weight:600}
+.src .item code{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.src .score{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--nav);background:var(--nav-s);padding:1px 6px}
+.caret::after{content:"▋";color:var(--nav);animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+.composer{border-top:1px solid var(--line);padding:12px 14px;background:var(--surface)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);padding:7px 12px;font-family:var(--sans);font-size:12px;color:var(--ink);transition:.12s;text-align:left}
+.chip:hover{border-color:var(--nav);color:var(--nav)}
+.chip:disabled{opacity:.55;cursor:default}
+.composer-in{display:flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--bg);padding:6px 6px 6px 12px}
+.composer-in input{flex:1;min-width:0;border:none;background:none;outline:none;font-family:var(--sans);font-size:13.5px;color:var(--ink)}
+.composer-in button{flex:none;background:var(--nav);color:#fff;border:none;padding:8px 15px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.04em}
+.composer-in button:disabled{opacity:.5}
+
+/* console */
+.console{background:var(--console);border-color:transparent;color:var(--console-fg)}
+.console .panel-h{border-color:var(--console-line);background:transparent}
+.console .panel-h h3{color:#8ea3c4}
+.console .panel-h .ic{color:#8ea3c4}
+.clab{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#8ea3c4;margin-bottom:7px;font-weight:600}
+.route{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.route .r{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.04);border:1px solid var(--console-line);padding:8px 10px}
+.route .r .nm{font-family:var(--sans);font-size:12px;font-weight:600}
+.route .r small{display:block;font-size:10px;color:var(--console-dim);font-family:var(--mono)}
+.route .r.on{border-color:#5a82c0;background:rgba(90,130,192,.14)}
+.route .r .pick{margin-left:auto;font-family:var(--mono);font-size:9.5px;font-weight:600;color:#7aa0d8;text-transform:uppercase;letter-spacing:.04em}
+.route .r.on .pick::before{content:"● "}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.kpi{background:rgba(255,255,255,.04);border:1px solid var(--console-line);padding:9px 10px}
+.kpi .v{font-family:var(--mono);font-size:16px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums}
+.kpi .l{font-family:var(--sans);font-size:10px;color:var(--console-dim);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.kpi .v.ok{color:#5aa77e}.kpi .v.warn{color:#d4b45e}.kpi .v.crit{color:#d98a86}
+.bar{height:5px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:7px}
+.bar>i{display:block;height:100%;background:#5a82c0;transition:width .5s}
+.cum{border-top:1px solid var(--console-line);padding-top:12px;margin-top:4px}
+.cum .row{display:flex;justify-content:space-between;font-family:var(--sans);font-size:12px;padding:3px 0;color:#b9c7de}
+.cum .row b{font-family:var(--mono);color:#fff;font-variant-numeric:tabular-nums}
+.log{margin-top:14px;border-top:1px solid var(--console-line);padding-top:12px}
+.log h4{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#8ea3c4;margin:0 0 8px;font-weight:600}
+.log ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;max-height:160px;overflow:auto;font-family:var(--mono);font-size:10.5px}
+.log li{display:flex;gap:7px;color:#9fb0cd;line-height:1.35}
+.log li .t{color:var(--console-dim);flex:none}
+.log li .s{flex:none;font-weight:600}
+.log li .s.ok{color:#5aa77e}.log li .s.deny{color:#d98a86}.log li .s.nf{color:#d4b45e}
+.empty{color:var(--console-dim);font-size:11px;font-style:italic}
+
+footer{background:var(--dark);color:#9a9a9a;padding-block:28px 40px;margin-top:4px}
+footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:14px;letter-spacing:.22em;text-align:center}
+footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;text-align:center;margin-top:7px;color:#bfbfbf}
+footer .fb{font-family:var(--sans);font-size:11.5px;color:#8f8f8f;max-width:90ch;margin:18px auto 0;line-height:1.7}
+footer .fb b{color:#c9c9c9;font-weight:600}
+footer .fb+.fb{margin-top:10px}
+
+@media (max-width:900px){.grid{grid-template-columns:1fr}.chat{min-height:0}.console{order:3}}
+@media (prefers-reduced-motion:reduce){.caret::after{animation:none}*{transition:none!important}}
+</style>
+
+<header class="brand"><a href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a>
+  <div class="wordmark">Baba Moustapha Amadou</div>
+  <div class="submark">Architecte de solutions IA · Démonstrateur</div>
+  <button class="theme-btn" id="theme" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>
+</header>
+
+<div class="wrap">
+  <section class="intro">
+    <div class="eyebrow">Solution GenAI · RAG agentique gouverné</div>
+    <h2>Atlas</h2>
+    <p class="plain">En clair : un assistant qui répond aux questions à partir de la <b>documentation technique</b> d'un industriel. Il ne montre à chacun que ce qu'il a le <b>droit de voir</b>, cite toujours ses <b>sources</b>, et garde les <b>coûts sous contrôle</b>. Posez votre question en saisie libre.</p>
+    <div class="meta">
+      <span class="mchip demo"><span class="dot"></span>Démo · données fictives</span>
+      <span class="mchip">Récupération, droits et citations réels, calculés dans votre navigateur</span>
+    </div>
+  </section>
+
+  <!-- architecture -->
+  <div class="arch">
+    <div class="arch-top">
+      <h3>Architecture</h3>
+      <span>Ingestion, puis récupération filtrée par droits, puis génération routée, puis réponse sourcée.</span>
+    </div>
+    <div class="flow">
+      <div class="node"><b>Sources</b><small>GED · PLM · ERP</small><span class="ntag">MCP / connecteurs</span></div>
+      <span class="arrow">&rsaquo;</span>
+      <div class="node"><b>Ingestion</b><small>parsing · chunking</small></div>
+      <span class="arrow">&rsaquo;</span>
+      <div class="node"><b>Index</b><small>recherche de passages</small></div>
+      <span class="arrow">&rsaquo;</span>
+      <div class="node k"><b>Récupération</b><small>scoring + filtre</small><span class="ntag">IAM / ACL</span></div>
+      <span class="arrow">&rsaquo;</span>
+      <div class="node k"><b>AI Gateway</b><small>routage modèle</small><span class="ntag">FinOps · observabilité</span></div>
+      <span class="arrow">&rsaquo;</span>
+      <div class="node"><b>Réponse</b><small>sourcée · tracée</small></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- governance -->
+    <div class="panel">
+      <div class="panel-h"><span class="ic">◆</span><h3>Gouvernance</h3></div>
+      <div class="panel-b">
+        <div class="sub" style="margin-top:0">Rôle de l'utilisateur</div>
+        <div class="seg" id="roles"></div>
+        <div class="sub">Périmètre documentaire</div>
+        <div id="docs"></div>
+        <div class="sub">Conformité</div>
+        <div class="badges">
+          <span class="badge">RGPD · UE</span>
+          <span class="badge">AI Act · risque limité</span>
+          <span class="badge n">Hébergement Azure UE</span>
+          <span class="badge n">Journalisation d'audit</span>
+          <span class="badge n">Supervision humaine</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- chat -->
+    <div class="panel chat">
+      <div class="panel-h"><span class="ic">▣</span><h3>Assistant</h3><span style="margin-left:auto;font-size:11px;color:var(--ink3)" id="roleTag" class="mono"></span></div>
+      <div class="stream" id="stream"></div>
+      <div class="composer">
+        <div class="chips" id="chips"></div>
+        <form class="composer-in" id="qform" autocomplete="off">
+          <input id="q" type="text" placeholder="Posez votre question… (saisie libre)" aria-label="Votre question">
+          <button type="submit" id="send">Envoyer</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- console -->
+    <div class="panel console">
+      <div class="panel-h"><span class="ic">▮</span><h3>Observabilité &amp; FinOps</h3></div>
+      <div class="panel-b">
+        <div class="clab">Routage · AI Gateway</div>
+        <div class="route" id="route">
+          <div class="r" data-m="rapide"><div><span class="nm">Modèle rapide</span><small>faible coût · requête factuelle</small></div><span class="pick"></span></div>
+          <div class="r" data-m="avancé"><div><span class="nm">Modèle avancé</span><small>synthèse multi-sources</small></div><span class="pick"></span></div>
+        </div>
+        <div class="kpis" id="kpis"></div>
+        <div class="cum">
+          <div class="clab" style="margin-bottom:6px">Cumul session</div>
+          <div class="row"><span>Requêtes</span><b id="cQ">0</b></div>
+          <div class="row"><span>Tokens</span><b id="cT">0</b></div>
+          <div class="row"><span>Coût d'inférence</span><b id="cC">0,0000 €</b></div>
+          <div class="row"><span>Latence moyenne</span><b id="cL">·</b></div>
+        </div>
+        <div class="log">
+          <h4>Journal d'audit</h4>
+          <ul id="log"><li class="empty">Aucune requête. Posez une question ou cliquez un exemple.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fm">Baba Moustapha Amadou</div>
+    <div class="fs">ATLAS · Démonstrateur industriel</div>
+    <p class="fb"><b>À propos.</b> Démonstrateur sur données fictives (« VOLTYS Industrial »), sans aucun contenu confidentiel ni système client réel. Cas d'usage industriel transposable, dans la lignée des entreprises accompagnées au 237 Digital Trade Innovation Lab, sans nommer aucune entreprise. Dans cette version, la <b>récupération, le filtrage des droits et les citations sont réels et calculés dans votre navigateur</b> ; la génération en langage naturel est assurée par le backend du dépôt, non appelé ici pour rester gratuit et sans clé exposée.</p>
+    <p class="fb">Ce que ça démontre : récupération augmentée (RAG) sur documentation technique, contrôle d'accès par rôle (IAM) appliqué <b>avant</b> la récupération, citations traçables, routage de modèles via AI Gateway, suivi des coûts (FinOps) et observabilité, repères de conformité RGPD et AI Act.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var root=document.documentElement;
+  document.getElementById("theme").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    var dark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+    root.setAttribute("data-theme",dark?"light":"dark");
+  });
+
+  var ROLES={
+    tech:{name:"Technicien terrain",desc:"Intervention & maintenance"},
+    rd:{name:"Ingénieur R&D",desc:"Accès étendu · documents confidentiels"},
+    support:{name:"Support client",desc:"Documentation diffusable"}
+  };
+  var DOCS=[
+    {id:"MAN-X7",t:"Manuel d'exploitation · Onduleur modulaire X7",cls:"int",roles:["tech","rd","support"]},
+    {id:"PROC-STOCK",t:"Procédure de maintenance · Stockage LiFePO4",cls:"int",roles:["tech","rd"]},
+    {id:"SPEC-SW400",t:"Spécification technique · Appareillage SW400",cls:"int",roles:["tech","rd","support"]},
+    {id:"FDS-B12",t:"Fiche de données de sécurité · Électrolyte B12",cls:"conf",roles:["rd"]},
+    {id:"RETEX-2024",t:"RETEX & non-conformités 2024",cls:"conf",roles:["rd"]}
+  ];
+  var CHUNKS=[
+    {doc:"MAN-X7",loc:"§1.3 Conditions d'environnement",text:"Plage de température de fonctionnement de l'onduleur X7 : de -10 °C à +40 °C en régime nominal, et jusqu'à +50 °C avec déclassement de puissance, environ -2 % par °C au-delà de 40 °C. Humidité relative admissible de 5 à 95 % sans condensation."},
+    {doc:"MAN-X7",loc:"§4.2 Raccordement puissance",text:"Le couple de serrage des borniers de puissance de l'onduleur X7 est de 14 N·m plus ou moins 1 pour les sections de câble supérieures ou égales à 95 mm², et de 8 N·m pour les sections inférieures."},
+    {doc:"MAN-X7",loc:"§5.1 Consignation",text:"Procédure de consignation de l'onduleur X7 : coupure amont et aval, décharge du bus continu avec attente de 5 minutes et vérification d'une tension inférieure à 50 V avant tout accès, cadenas nominatif et enregistrement au registre de consignation."},
+    {doc:"MAN-X7",loc:"§2.4 Mise en service",text:"La mise en service de l'onduleur X7 impose la vérification du serrage des connexions, du sens des phases et de la résistance d'isolement avant la première mise sous tension."},
+    {doc:"PROC-STOCK",loc:"§2.1 Plan de maintenance",text:"Maintenance préventive du système de stockage LiFePO4 : inspection visuelle trimestrielle, contrôle d'équilibrage des cellules et test de capacité tous les 12 mois, remplacement préventif du ventilateur de refroidissement à 40 000 heures de fonctionnement."},
+    {doc:"PROC-STOCK",loc:"§3.2 Sécurité batterie",text:"En cas d'emballement thermique d'un module de stockage LiFePO4, isoler le rack, ne pas utiliser d'eau, ventiler la zone et alerter. Le port des équipements de protection individuelle est obligatoire."},
+    {doc:"SPEC-SW400",loc:"§1.2 Caractéristiques",text:"L'appareillage SW400 est prévu pour un courant assigné de 400 ampères sous 690 volts, avec un pouvoir de coupure de 50 kA."},
+    {doc:"SPEC-SW400",loc:"§3.4 Sécurité d'exploitation",text:"Consignation de l'appareillage SW400 : condamnation mécanique du sectionneur et vérification de l'absence de tension sur les trois phases avant toute intervention."},
+    {doc:"FDS-B12",loc:"§3 Composition",text:"L'électrolyte du module B12 est une solution à base de LiPF6 dans un mélange de carbonates organiques EC et DMC. En cas de contact, rinçage à l'eau pendant 15 minutes et consultation médicale."},
+    {doc:"FDS-B12",loc:"§7 Manipulation",text:"Manipuler l'électrolyte B12 sous hotte aspirante, équipements de protection chimiques obligatoires, tenir à l'écart de l'humidité ; la réaction avec l'eau libère de l'acide fluorhydrique."},
+    {doc:"RETEX-2024",loc:"§2 Incidents",text:"RETEX 2024 : six entités de stockage présentaient une dérive d'équilibrage des cellules ; deux non-conformités sur le couple de serrage des borniers ont été relevées en production."},
+    {doc:"RETEX-2024",loc:"§4 Actions correctives",text:"Plan d'action RETEX 2024 : renforcement du contrôle de serrage, ajout d'un test d'équilibrage systématique en fin de ligne et révision de la procédure de consignation."}
+  ];
+  var EXAMPLES=[
+    "Couple de serrage des borniers de l'onduleur X7 ?",
+    "Plage de température de fonctionnement du X7 ?",
+    "Fréquence de maintenance du stockage LiFePO4 ?",
+    "Compare la consignation du X7 et du SW400",
+    "Composition de l'électrolyte du module B12 ?"
+  ];
+
+  var STOP={"le":1,"la":1,"les":1,"un":1,"une":1,"des":1,"de":1,"du":1,"d":1,"l":1,"a":1,"au":1,"aux":1,"et":1,"ou":1,"en":1,"dans":1,"sur":1,"pour":1,"par":1,"avec":1,"sans":1,"est":1,"sont":1,"se":1,"son":1,"sa":1,"ses":1,"ce":1,"cet":1,"cette":1,"quel":1,"quelle":1,"quels":1,"quelles":1,"que":1,"qui":1,"quoi":1,"comment":1,"combien":1,"the":1,"of":1,"to":1,"is":1,"are":1,"what":1,"how":1};
+  function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+  function toks(s){return norm(s).split(/\s+/).filter(function(w){return w.length>1 && !STOP[w];});}
+  CHUNKS.forEach(function(c){var set={};toks(c.text+" "+c.loc).forEach(function(w){set[w]=1;});c._set=set;});
+
+  function access(r){return DOCS.filter(function(d){return d.roles.indexOf(r)>-1;}).map(function(d){return d.id;});}
+  function docById(id){for(var i=0;i<DOCS.length;i++)if(DOCS[i].id===id)return DOCS[i];return null;}
+  function scoreChunk(qt,c){if(!qt.length)return 0;var hit=0;for(var i=0;i<qt.length;i++){if(c._set[qt[i]])hit++;}return hit/qt.length;}
+  function retrieve(query,role){
+    var qt=toks(query),acc=access(role);
+    var scored=CHUNKS.map(function(c){return {c:c,s:scoreChunk(qt,c),acc:acc.indexOf(c.doc)>-1};});
+    scored.sort(function(a,b){return b.s-a.s;});
+    var bestAcc=null,bestRes=null;
+    scored.forEach(function(x){if(x.acc){if(!bestAcc)bestAcc=x;}else{if(!bestRes)bestRes=x;}});
+    return {qt:qt,scored:scored,bestAcc:bestAcc,bestRes:bestRes};
+  }
+
+  var state={role:"tech",busy:false,sum:{q:0,t:0,c:0,l:0}};
+  var $=function(s){return document.querySelector(s);};
+
+  (function(){var h=$("#roles");Object.keys(ROLES).forEach(function(r){
+    var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed",r===state.role);
+    b.innerHTML="<b>"+ROLES[r].name+"</b><small>"+ROLES[r].desc+"</small>";
+    b.addEventListener("click",function(){setRole(r);});h.appendChild(b);
+  });})();
+  function setRole(r){
+    state.role=r;
+    [].forEach.call($("#roles").children,function(b,i){b.setAttribute("aria-pressed",Object.keys(ROLES)[i]===r);});
+    $("#roleTag").textContent=ROLES[r].name;renderDocs();$("#stream").innerHTML="";
+    sysMsg("Session ouverte en tant que <strong>"+ROLES[r].name+"</strong>. "+access(r).length+" document(s) accessible(s) sur "+DOCS.length+". Posez une question en saisie libre.");
+  }
+  function renderDocs(){
+    var acc=access(state.role),h=$("#docs");h.innerHTML="";
+    DOCS.forEach(function(d){
+      var ok=acc.indexOf(d.id)>-1;var el=document.createElement("div");el.className="doc "+(ok?"ok":"no");
+      el.innerHTML='<span class="st">'+(ok?"✓":"✕")+'</span><div class="meta"><b>'+d.t+'<span class="cls '+(d.cls==="conf"?"conf":"int")+'">'+(d.cls==="conf"?"Confidentiel R&D":"Interne")+'</span></b><code>'+d.id+'</code></div>';
+      h.appendChild(el);
+    });
+  }
+  (function(){var h=$("#chips");EXAMPLES.forEach(function(q){
+    var b=document.createElement("button");b.className="chip";b.type="button";b.textContent=q;
+    b.addEventListener("click",function(){if(state.busy)return;$("#q").value=q;submit(q);});h.appendChild(b);
+  });})();
+
+  function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+  function userMsg(t){var m=document.createElement("div");m.className="msg u";m.innerHTML='<div class="av">V</div><div class="bubble">'+escapeHtml(t)+'</div>';$("#stream").appendChild(m);scroll();}
+  function sysMsg(html){var m=document.createElement("div");m.className="msg a";m.innerHTML='<div class="av">A</div><div class="bubble" style="background:var(--surface);font-size:12.5px;color:var(--ink2)">'+html+'</div>';$("#stream").appendChild(m);scroll();}
+  function scroll(){var s=$("#stream");s.scrollTop=s.scrollHeight;}
+
+  var SYN=/\b(compare|comparer|comparaison|difference|versus|vs|entre|synthese|ecart)\b/;
+  function estTokens(q,src){return Math.round((q.length+src.length)/4)+40;}
+  function eur(n){return n.toFixed(4).replace(".",",")+" €";}
+
+  document.getElementById("qform").addEventListener("submit",function(e){e.preventDefault();var v=$("#q").value.trim();if(v&&!state.busy)submit(v);});
+
+  function submit(query){
+    state.busy=true;$("#send").disabled=true;userMsg(query);setRoute(null);
+    var R=retrieve(query,state.role);
+    if(R.bestRes && R.bestRes.s>=0.45 && (!R.bestAcc || R.bestRes.s>=R.bestAcc.s+0.1)){
+      var dn=R.bestRes.c.doc;var dcls=docById(dn).cls==="conf"?"Confidentiel R&D":"Interne, hors de votre périmètre";var m=document.createElement("div");m.className="msg a";
+      m.innerHTML='<div class="av">A</div><div class="bubble deny"><div class="rt">⛔ Accès refusé · contrôle IAM</div>La requête correspond au document <code class="mono">'+dn+'</code> ('+docById(dn).t+'), classé <strong>'+dcls+'</strong>. Votre rôle <strong>'+ROLES[state.role].name+'</strong> n\'y a pas accès. Le filtrage s\'applique <strong>avant</strong> la récupération : aucun appel modèle, coût nul.</div>';
+      $("#stream").appendChild(m);scroll();kpis({blocked:true});addLog(state.role,"ACCESS_DENIED",dn,"deny");finish();return;
+    }
+    if(!R.bestAcc || R.bestAcc.s<0.34){
+      var mm=document.createElement("div");mm.className="msg a";
+      mm.innerHTML='<div class="av">A</div><div class="bubble"><span class="body">Je ne trouve pas de source pertinente au-dessus du seuil de confiance dans le périmètre autorisé. L\'assistant ne devine pas : reformulez ou précisez votre question.</span><div style="margin-top:8px;font-size:11px;color:var(--bronze);font-weight:600">⚠ Hors périmètre · réponse prudente, pas d\'invention.</div></div>';
+      $("#stream").appendChild(mm);scroll();
+      var lat0=420+Math.round(Math.random()*220);
+      kpis({model:"rapide",lat:lat0,conf:Math.round(R.bestAcc?R.bestAcc.s*100:18),cost:0.0006,tin:estTokens(query,""),tout:0});
+      addLog(state.role,"NOT_FOUND","—","nf");tally(estTokens(query,""),0,0.0006,lat0);finish();return;
+    }
+    var cites=[R.bestAcc],second=null;
+    for(var i=0;i<R.scored.length;i++){var s=R.scored[i];if(s.acc && s!==R.bestAcc && s.s>=0.4 && s.c.doc!==R.bestAcc.c.doc){second=s;break;}}
+    if(second)cites.push(second);
+    var multi=!!second,model=(multi||SYN.test(norm(query)))?"avancé":"rapide";
+    var srcText=cites.map(function(x){return x.c.text;}).join(" ");
+    var tin=estTokens(query,srcText),tout=Math.round(srcText.length/6);
+    var pin=model==="rapide"?0.15:2.5,pout=model==="rapide"?0.60:10,cost=tin/1e6*pin+tout/1e6*pout;
+    var lat=model==="rapide"?(420+Math.round(Math.random()*240)):(1150+Math.round(Math.random()*520));
+    var conf=Math.min(96,Math.round(R.bestAcc.s*100));
+    var ans=cites.map(function(x){return x.c.text;}).join("\n\n");
+    var sources=cites.map(function(x){var d=docById(x.c.doc);return '<div class="item"><b>'+d.t.split("·")[0].trim()+'</b> <code>'+x.c.doc+' · '+x.c.loc+'</code><span class="score mono">'+x.s.toFixed(2)+'</span></div>';}).join("");
+    var m=document.createElement("div");m.className="msg a";
+    m.innerHTML='<div class="av">A</div><div class="bubble"><span class="body"></span><div class="exnote"><b>Réponse extractive</b> (démo hors-ligne) : passage source récupéré et cité en direct. En production, le modèle rédige la synthèse à partir de ces sources.</div><div class="src"><div class="src-h">Sources citées · '+cites.length+'</div>'+sources+'</div></div>';
+    $("#stream").appendChild(m);var body=m.querySelector(".body");
+    setTimeout(function(){setRoute(model);},200);
+    setTimeout(function(){
+      if(reduce){body.textContent=ans;}else{typeIn(body,ans);}
+      kpis({model:model,lat:lat,conf:conf,cost:cost,tin:tin,tout:tout});
+      addLog(state.role,"QUERY_OK",cites[0].c.doc,"ok");tally(tin,tout,cost,lat);finish();
+    },reduce?150:Math.min(760,lat*0.5));
+    scroll();
+  }
+  function finish(){state.busy=false;$("#send").disabled=false;$("#q").value="";$("#q").focus();}
+  function tally(tin,tout,cost,lat){
+    state.sum.q++;state.sum.t+=tin+tout;state.sum.c+=cost;state.sum.l+=lat;
+    $("#cQ").textContent=state.sum.q;$("#cT").textContent=state.sum.t.toLocaleString("fr-FR");
+    $("#cC").textContent=eur(state.sum.c);$("#cL").textContent=Math.round(state.sum.l/state.sum.q)+" ms";
+  }
+  function typeIn(el,txt){var i=0;el.classList.add("caret");var iv=setInterval(function(){i+=4;el.textContent=txt.slice(0,i);scroll();if(i>=txt.length){clearInterval(iv);el.classList.remove("caret");}},10);}
+  function setRoute(m){[].forEach.call(document.querySelectorAll("#route .r"),function(r){var on=m&&r.getAttribute("data-m")===m;r.classList.toggle("on",on);r.querySelector(".pick").textContent=on?"sélectionné":"";});}
+  function kpis(q){
+    var h=$("#kpis");
+    if(q.blocked){h.innerHTML=cell("·","Modèle")+cell("0 ms","Latence")+cell("0,0000 €","Coût","ok")+cell("bloqué","Statut","crit");return;}
+    var cc=q.conf>=90?"ok":q.conf>=70?"warn":"crit";
+    h.innerHTML=cell(q.model==="rapide"?"Rapide":"Avancé","Modèle")+cell(q.lat+" ms","Latence")+cell((q.conf/100).toFixed(2),"Confiance",cc)+cell(eur(q.cost),"Coût",q.model==="rapide"?"ok":"warn")+'<div class="kpi" style="grid-column:1/-1"><div class="v mono">'+q.tin.toLocaleString("fr-FR")+' <span style="color:var(--console-dim);font-size:12px">in</span> · '+q.tout+' <span style="color:var(--console-dim);font-size:12px">out</span></div><div class="l">Tokens</div><div class="bar"><i style="width:'+Math.min(100,(q.tin/4000*100))+'%"></i></div></div>';
+  }
+  function cell(v,l,c){return '<div class="kpi"><div class="v mono '+(c||"")+'">'+v+'</div><div class="l">'+l+'</div></div>';}
+  function addLog(role,act,doc,st){
+    var ul=$("#log");var e=ul.querySelector(".empty");if(e)e.remove();
+    var li=document.createElement("li");var d=new Date();
+    var hh=("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)+":"+("0"+d.getSeconds()).slice(-2);
+    li.innerHTML='<span class="t">'+hh+'</span><span class="s '+st+'">'+act+'</span><span>'+(doc!=="—"?doc:"")+' · '+({tech:"TECH",rd:"R&D",support:"SUPP"})[role]+'</span>';
+    ul.insertBefore(li,ul.firstChild);
+  }
+
+  renderDocs();$("#roleTag").textContent=ROLES[state.role].name;
+  sysMsg("Session ouverte en tant que <strong>Technicien terrain</strong>. 3 documents accessibles sur 5. Posez une question en <strong>saisie libre</strong>, ou cliquez un exemple. Essayez aussi une question sur l'<strong>électrolyte</strong> pour voir le contrôle d'accès en action.");
+})();
+</script>
+</body>
+</html>

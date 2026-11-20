@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="../assets/favicon.svg">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<title>Digi'check 237</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* DA commune : premium achromatique (marbre/noir), couleur réservée aux données. Audit de maturité digitale, radar 6 dimensions */
+:root{
+  --bg:#ffffff; --surface:#f9f9f9; --panel:#f5f5f5; --dark:#111111; --dark-fg:#ffffff;
+  --ink:#1a1a1a; --ink2:#555555; --ink3:#737373; --faint:#8a8a8a; --line:#e0e0e0; --line2:#ececec;
+  --marble1:#f5f5f5; --marble2:#e8e8e8; --marble3:#f0f0f0; --marble4:#d8d8d8;
+  --nav:#1C3557; --nav2:#1A5276; --green:#1B5E3B; --green2:#2E7D52; --bord:#7D1F2A; --bronze:#7B5E3A; --slate:#3C4F63; --or:#9a7b33;
+  --nav-s:#eaeef4; --green-s:#e8f1ec; --bord-s:#f6ecee; --bronze-s:#f1ece3;
+  --shadow:0 1px 2px rgba(17,17,17,.05),0 10px 34px rgba(17,17,17,.07);
+  --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#8f8f8f; --faint:#7a7a7a; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bord-s:#241416; --bronze-s:#201c12;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#8f8f8f; --faint:#7a7a7a; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bord-s:#241416; --bronze-s:#201c12;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:500;text-transform:uppercase;letter-spacing:.13em;margin:0;text-wrap:balance}
+p{margin:0}
+.tnum{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+.marble{background:linear-gradient(135deg,var(--marble1) 0%,var(--marble2) 25%,var(--marble3) 40%,var(--marble4) 55%,var(--marble3) 70%,var(--marble1) 100%)}
+
+header.brand{background:var(--dark);color:var(--dark-fg);text-align:center;padding-block:16px;position:relative;z-index:3}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:9;background:var(--dark)}
+.wordmark{font-family:var(--serif);text-transform:uppercase;font-size:clamp(15px,3vw,19px);letter-spacing:.26em;font-weight:500}
+.submark{font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#9a9a9a;margin-top:6px}
+.theme-btn{position:absolute;top:50%;right:max(16px,env(safe-area-inset-right,0px));transform:translateY(-50%);appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:33px;height:33px;border-radius:50%;cursor:pointer;font-size:13px}
+.theme-btn:hover{border-color:#666;color:#fff}
+
+.hero{text-align:center;padding-block:44px 34px;border-bottom:1px solid var(--line)}
+.kicker{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.hero h1{font-size:clamp(32px,6vw,54px);letter-spacing:.09em;margin-top:16px;color:var(--ink)}
+.hero .sub{font-family:var(--sans);font-size:clamp(14px,2.1vw,16.5px);color:var(--ink2);max-width:66ch;margin:16px auto 0;font-weight:400;text-transform:none;letter-spacing:0}
+.promise{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink);margin-top:16px;letter-spacing:.02em}
+.ctxbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.ctxf{display:flex;flex-direction:column;gap:4px;text-align:left}
+.ctxf label{font-family:var(--sans);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600;padding-left:2px}
+.ctxf select{appearance:none;font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:0;padding:8px 30px 8px 11px;cursor:pointer;min-width:130px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 9px center}
+.cred{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:30px}
+.cred .c{background:var(--bg);padding:15px 10px;text-align:center}
+.cred .n{font-family:var(--serif);font-size:clamp(17px,3vw,24px);font-weight:600;letter-spacing:.02em}
+.cred .n.nv{color:var(--nav)} .cred .n.g{color:var(--green)}
+.cred .l{font-family:var(--sans);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+
+section{padding-block:42px}
+.shead{text-align:center;margin-bottom:6px}
+.shead .st{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.shead h2{font-size:clamp(21px,3.3vw,29px);letter-spacing:.09em;margin-top:11px}
+.rule{width:52px;height:1px;background:var(--ink);margin:15px auto 0}
+.shead p{font-family:var(--sans);text-transform:none;letter-spacing:0;color:var(--ink2);max-width:66ch;margin:13px auto 0;font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;margin:20px auto 0;max-width:720px}
+.legend span{font-family:var(--sans);font-size:11px;color:var(--ink2);display:inline-flex;align-items:center;gap:5px}
+.legend b{font-family:var(--mono);font-size:10px;color:var(--nav);border:1px solid var(--line);width:17px;height:17px;display:inline-grid;place-items:center}
+
+.diag{margin-top:24px;display:grid;grid-template-columns:1fr 330px;gap:26px;align-items:start}
+.dims{display:flex;flex-direction:column;gap:16px;min-width:0}
+.dim{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.dim-h{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+.dim-h .di{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--nav);width:25px;height:25px;border:1px solid var(--nav);display:grid;place-items:center;flex:none}
+.dim-h .dn{font-family:var(--serif);font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);line-height:1.3}
+.dim-h .dsc{margin-left:auto;font-family:var(--serif);font-size:14px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.dim-h .dsc b{color:var(--nav)}
+.item{padding:12px 16px;border-top:1px solid var(--line2)}
+.item:first-child{border-top:none}
+.item .q{font-family:var(--sans);font-size:13px;color:var(--ink);margin-bottom:9px;text-transform:none;letter-spacing:0}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.scale button{appearance:none;cursor:pointer;font-family:var(--mono);font-size:12px;padding:8px 3px;border:1px solid var(--line);background:var(--bg);color:var(--ink2);transition:.12s}
+.scale button:hover{border-color:var(--ink3)}
+.scale button.on{background:var(--nav);border-color:var(--nav);color:#fff;font-weight:500}
+
+.result{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--dark);color:var(--dark-fg);padding:20px;box-shadow:var(--shadow)}
+.result .rt{font-family:var(--serif);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9a9a9a;text-align:center}
+.radar{margin:6px 0 2px}
+.rscore{display:flex;align-items:baseline;justify-content:center;gap:10px;font-family:var(--serif)}
+.rscore .big{font-size:38px;font-weight:600;line-height:1}
+.rscore .max{font-size:15px;color:#8f8f8f}
+.lvlbadge{text-align:center;margin-top:12px;padding:10px;border:1px solid #333}
+.lvlbadge .ln{font-family:var(--serif);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#7aa0d8}
+.lvlbadge .lnum{font-family:var(--mono);font-size:10px;color:#9a9a9a;margin-top:3px}
+.lvlbadge .ld{font-family:var(--sans);font-size:11px;color:#b4b4b4;margin-top:6px;text-transform:none;letter-spacing:0;line-height:1.5}
+.reset{margin-top:14px;width:100%;appearance:none;cursor:pointer;background:transparent;border:1px solid #3a3a3a;color:#b4b4b4;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:9px}
+.reset:hover{border-color:#666;color:#fff}
+.privacy{font-family:var(--sans);font-size:10px;color:#7a7a7a;text-align:center;margin-top:13px;line-height:1.5;text-transform:none;letter-spacing:0}
+
+.prio{margin-top:28px}
+.prio .ph{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;text-align:center}
+.ctxnote{font-family:var(--sans);font-size:12px;color:var(--ink2);text-align:center;margin-bottom:16px;text-transform:none;letter-spacing:0;background:var(--nav-s);border:1px solid var(--line);padding:9px 14px}
+.recs{display:flex;flex-direction:column;gap:12px}
+.rec{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--nav);padding:15px 17px;box-shadow:var(--shadow)}
+.rec .rk{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink3);width:24px;text-align:center}
+.rec .rb{min-width:0}
+.rec .rt2{font-family:var(--serif);font-size:15px;letter-spacing:.04em;text-transform:none;color:var(--ink);font-weight:600}
+.rec .rd{font-family:var(--sans);font-size:12px;color:var(--ink2);margin-top:3px;text-transform:none;letter-spacing:0}
+.rec .rtag{display:inline-block;font-family:var(--sans);font-size:10.5px;margin-top:8px;padding:3px 9px;background:var(--panel);border:1px solid var(--line);color:var(--ink2)}
+.rec .ri{text-align:right;white-space:nowrap}
+.rec .ri .iv{font-family:var(--serif);font-size:17px;font-weight:600}
+.rec .ri .iv.val{color:var(--bronze)} .rec .ri .iv.risk{color:var(--bord)} .rec .ri .iv.align{color:var(--nav)}
+.rec .ri .il{font-family:var(--sans);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+
+.roadmap{margin-top:26px}
+.roadmap .ph{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;text-align:center}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:var(--surface);border:1px solid var(--line);padding:16px;box-shadow:var(--shadow)}
+.step .sh{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--nav);margin-bottom:8px}
+.step .si{font-family:var(--sans);font-size:12.5px;color:var(--ink);text-transform:none;letter-spacing:0;line-height:1.5}
+.methbtn{display:block;margin:20px auto 0;appearance:none;cursor:pointer;background:none;border:none;font-family:var(--sans);font-size:11px;color:var(--nav);text-decoration:underline;text-underline-offset:3px}
+.method-box{display:none;background:var(--panel);border:1px solid var(--line);padding:15px 17px;margin-top:14px;font-family:var(--sans);font-size:12px;color:var(--ink2);text-transform:none;letter-spacing:0;line-height:1.7}
+.method-box.open{display:block}
+.method-box code{font-family:var(--mono);font-size:11px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;color:var(--nav)}
+.method-box b{color:var(--ink);font-weight:600}
+
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.mcard{text-align:center;padding:10px}
+.mcard .mi{font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--nav);text-transform:uppercase}
+.mcard .md{font-family:var(--sans);font-size:12px;color:var(--ink2);margin-top:7px;text-transform:none;letter-spacing:0;line-height:1.55}
+.refs{font-family:var(--sans);font-size:11.5px;color:var(--ink3);text-align:center;margin-top:24px;text-transform:none;letter-spacing:0;line-height:1.7;max-width:80ch;margin-left:auto;margin-right:auto}
+
+footer{background:var(--dark);color:#9a9a9a;text-align:center;padding-block:32px 40px}
+footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:15px;letter-spacing:.24em}
+footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;margin-top:7px;color:#bfbfbf}
+footer .fnote{font-family:var(--sans);font-size:10.5px;color:#7a7a7a;max-width:82ch;margin:16px auto 0;line-height:1.7}
+
+@media (max-width:860px){.diag{grid-template-columns:1fr}.result{position:relative;top:0;order:-1}}
+@media (max-width:560px){.cred{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.method{grid-template-columns:repeat(2,1fr)}.rec{grid-template-columns:1fr;gap:10px}.rec .rk{display:none}.rec .ri{text-align:left}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="brand"><a href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a>
+  <div class="wordmark">Baba Moustapha Amadou</div>
+  <div class="submark">Architecte de solutions IA · Démonstrateur</div>
+  <button class="theme-btn" id="themeBtn" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>
+</header>
+
+<div class="marble"><div class="wrap">
+  <div class="hero">
+    <div class="kicker">Application · Audit de maturité digitale</div>
+    <h1>Digi'check 237</h1>
+    <p class="sub">Un bilan à 360° de la maturité digitale d'une organisation, sur six dimensions reconnues. Un radar clair, un niveau précis, des priorités et une feuille de route. De la TPE à la grande structure.</p>
+    <p class="promise">« Savoir où l'on en est pour savoir où aller. »</p>
+    <div class="ctxbar" id="ctxbar"></div>
+    <div class="cred">
+      <div class="c"><div class="n nv">6</div><div class="l">dimensions</div></div>
+      <div class="c"><div class="n">5</div><div class="l">niveaux de maturité</div></div>
+      <div class="c"><div class="n">12</div><div class="l">constats</div></div>
+      <div class="c"><div class="n g">15</div><div class="l">entreprises accompagnées</div></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <section>
+    <div class="shead">
+      <div class="st">Le diagnostic</div>
+      <h2>Six dimensions, un radar</h2>
+      <div class="rule"></div>
+      <p>Pour chaque constat, situez l'organisation sur l'échelle de maturité. Le radar, le niveau et la feuille de route se construisent en direct.</p>
+    </div>
+    <div class="legend" id="legend"></div>
+
+    <div class="diag">
+      <div class="dims" id="dims"></div>
+      <aside class="result" id="result">
+        <div class="rt">Profil de maturité digitale</div>
+        <div class="radar" id="radar"></div>
+        <div class="rscore"><span class="big tnum" id="scoreVal">0</span><span class="max">/ 48</span></div>
+        <div class="lvlbadge"><div class="ln" id="lvlName">·</div><div class="lnum" id="lvlNum"></div><div class="ld" id="lvlDesc"></div></div>
+        <button class="reset" id="resetBtn">Réinitialiser</button>
+        <p class="privacy">Aucune donnée saisie n'est transmise ni enregistrée. Calcul local, conforme RGPD.</p>
+      </aside>
+    </div>
+
+    <div class="prio">
+      <div class="ph">Priorités d'action</div>
+      <div class="ctxnote" id="ctxnote" hidden></div>
+      <div class="recs" id="recs"></div>
+    </div>
+
+    <div class="roadmap">
+      <div class="ph">Feuille de route</div>
+      <div class="steps" id="steps"></div>
+      <button class="methbtn" id="methBtn">Voir la méthode de scoring</button>
+      <div class="method-box" id="methBox">
+        <b>Échelle de maturité</b> : <code>0</code> Inexistant, <code>1</code> Initial, <code>2</code> Défini, <code>3</code> Géré, <code>4</code> Optimisé. Chaque dimension porte deux constats notés de 0 à 4, soit un score sur 48, projeté en niveau de maturité sur cinq paliers (Initial à Leader digital) et en radar.<br>
+        <b>Valeur activable</b> ≈ heures gagnées par semaine × taux horaire valorisé × 46 semaines, sur les leviers opérationnels à faible maturité. Taux de référence : PME <code>45 €/h</code>, ETI <code>75 €/h</code>, Grand compte <code>120 €/h</code>.<br>
+        <b>Feuille de route</b> : séquencement des dimensions les plus faibles, du court au long terme. Ordres de grandeur, pas un engagement contractuel.
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="shead"><div class="st">La méthode</div><h2>Pourquoi c'est crédible</h2><div class="rule"></div></div>
+    <div class="method">
+      <div class="mcard"><div class="mi">Référencé</div><div class="md">Dimensions et niveaux alignés sur les modèles de maturité digitale reconnus.</div></div>
+      <div class="mcard"><div class="mi">Terrain</div><div class="md">Issu d'un audit mené auprès d'entreprises réelles, restitué de façon anonymisée.</div></div>
+      <div class="mcard"><div class="mi">Actionnable</div><div class="md">Chaque écart devient une priorité séquencée, pas un simple constat.</div></div>
+      <div class="mcard"><div class="mi">Transposable</div><div class="md">De la TPE à la grande structure, du privé au public ; le contexte adapte les priorités.</div></div>
+    </div>
+    <p class="refs">Socle de référence : modèles de maturité digitale (Deloitte Digital Maturity Model, TM Forum Digital Maturity Model, étude MIT Sloan Management Review et Deloitte « Achieving Digital Maturity », travaux de Westerman et al. sur les « Digital Masters »). Repères de performance issus d'un terrain réel, présentés de façon anonymisée.</p>
+  </section>
+</div>
+
+<footer>
+  <div class="fm">Baba Moustapha Amadou</div>
+  <div class="fs">Digi'check 237 · Démonstrateur</div>
+  <p class="fnote">Méthode d'audit de maturité digitale appliquée aux entreprises accompagnées au 237 Digital Trade Innovation Lab, présentée de façon anonymisée et transposable à toute organisation. Aucune donnée nominative. Résultats contextuels, non contractuels. Aucune donnée personnelle collectée.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var r=document.documentElement,c=r.getAttribute('data-theme');
+    var d=c?c==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+    r.setAttribute('data-theme',d?'light':'dark');
+  });
+
+  var CTX={
+    taille:{label:'Taille',opts:[['tpe','TPE'],['pme','PME'],['eti','ETI'],['grand','Grand compte']],val:'pme'},
+    type:{label:'Organisation',opts:[['prive','Privé'],['public','Public'],['asso','Association']],val:'prive'},
+    secteur:{label:'Secteur',opts:[['commerce','Commerce'],['services','Services'],['industrie','Industrie'],['sante','Santé'],['tourisme','Tourisme'],['public','Secteur public'],['autre','Autre']],val:'commerce'},
+    zone:{label:'Zone',opts:[['locale','Locale'],['nationale','Nationale'],['intl','Internationale']],val:'nationale'}
+  };
+  var RATE={tpe:40,pme:45,eti:75,grand:120};
+  var ctxbar=document.getElementById('ctxbar');
+  ctxbar.innerHTML=Object.keys(CTX).map(function(k){var f=CTX[k];
+    return '<div class="ctxf"><label for="ctx-'+k+'">'+f.label+'</label><select id="ctx-'+k+'" data-k="'+k+'">'+
+      f.opts.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===f.val?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></div>';
+  }).join('');
+  ctxbar.addEventListener('change',function(e){var s=e.target.closest('select');if(!s)return;CTX[s.dataset.k].val=s.value;update();});
+  function rate(){return RATE[CTX.taille.val];}
+
+  var LEVELS=['Inexistant','Initial','Défini','Géré','Optimisé'];
+  document.getElementById('legend').innerHTML=LEVELS.map(function(l,i){return '<span><b>'+i+'</b>'+l+'</span>';}).join('');
+
+  /* 6 dimensions de maturité digitale (Deloitte / TM Forum / MIT-Deloitte) */
+  var DIMS=[
+    {id:'strat',name:'Stratégie digitale',short:'Stratégie',
+      items:['Une stratégie digitale est formalisée et alignée sur le business','Un budget et une gouvernance digitale sont en place'],
+      lever:{t:'Formaliser une stratégie digitale et sa gouvernance',kind:'align'}},
+    {id:'client',name:'Expérience client & présence',short:'Client',
+      items:['Les canaux digitaux (site, réseaux, contact) sont actifs et cohérents','Le parcours client en ligne est fluide et mesuré'],
+      lever:{t:'Unifier les canaux et fluidifier le parcours client',kind:'value',hw:2}},
+    {id:'ops',name:'Opérations & processus',short:'Opérations',
+      items:['Les processus clés sont digitalisés, pas sur papier ou tableur','Des automatisations réduisent les tâches répétitives'],
+      lever:{t:'Digitaliser et automatiser les processus clés',kind:'value',hw:4}},
+    {id:'tech',name:'Technologie & systèmes',short:'Techno',
+      items:['Le système d’information est intégré (les outils communiquent)','Le socle est sécurisé, à jour et sauvegardé'],
+      lever:{t:'Intégrer et sécuriser le système d’information',kind:'risk'}},
+    {id:'data',name:'Données & pilotage',short:'Données',
+      items:['Les données sont centralisées et de qualité','Les décisions s’appuient sur des tableaux de bord, pas à l’intuition'],
+      lever:{t:'Centraliser les données et déployer des tableaux de bord',kind:'value',hw:3}},
+    {id:'culture',name:'Culture & compétences',short:'Culture',
+      items:['Les équipes sont formées et à l’aise avec les outils numériques','L’organisation est agile et ouverte au changement'],
+      lever:{t:'Former les équipes et instaurer une culture digitale',kind:'align'}}
+  ];
+
+  var answers={strat:[2,1],client:[2,2],ops:[1,1],tech:[2,1],data:[1,1],culture:[2,1]};
+
+  var dimsEl=document.getElementById('dims');
+  dimsEl.innerHTML=DIMS.map(function(d,di){
+    var items=d.items.map(function(q,ci){
+      var btns=[0,1,2,3,4].map(function(v){return '<button data-d="'+d.id+'" data-ci="'+ci+'" data-v="'+v+'">'+v+'</button>';}).join('');
+      return '<div class="item"><div class="q">'+q+'</div><div class="scale">'+btns+'</div></div>';
+    }).join('');
+    return '<div class="dim"><div class="dim-h"><span class="di">'+(di+1)+'</span><span class="dn">'+d.name+'</span><span class="dsc"><b id="dsc-'+d.id+'">0</b> / 8</span></div>'+items+'</div>';
+  }).join('');
+
+  function dScore(id){return answers[id].reduce(function(a,b){return a+b;},0);}
+  function dAvg(id){return dScore(id)/2;}
+  function total(){return DIMS.reduce(function(s,d){return s+dScore(d.id);},0);}
+  function valOf(hw){return Math.round(hw*rate()*46/1000);}
+
+  var scoreVal=document.getElementById('scoreVal'),lvlName=document.getElementById('lvlName'),lvlNum=document.getElementById('lvlNum'),
+      lvlDesc=document.getElementById('lvlDesc'),radarEl=document.getElementById('radar'),
+      recs=document.getElementById('recs'),steps=document.getElementById('steps'),ctxnote=document.getElementById('ctxnote');
+
+  var MAT=[
+    {max:11,n:'Initial',num:'Niveau 1 / 5',d:'Le digital est subi, au coup par coup. Priorité : poser une stratégie et des bases.'},
+    {max:23,n:'Émergent',num:'Niveau 2 / 5',d:'Des briques existent, encore dispersées. Priorité : digitaliser les processus clés.'},
+    {max:35,n:'Structuré',num:'Niveau 3 / 5',d:'Le digital est outillé sur l’essentiel. Priorité : données, pilotage et intégration.'},
+    {max:43,n:'Intégré',num:'Niveau 4 / 5',d:'Le digital irrigue l’organisation. Priorité : optimiser et étendre.'},
+    {max:48,n:'Leader digital',num:'Niveau 5 / 5',d:'Le digital est un avantage compétitif piloté dans la durée.'}
+  ];
+  function matOf(t){for(var i=0;i<MAT.length;i++)if(t<=MAT[i].max)return MAT[i];return MAT[MAT.length-1];}
+
+  function radar(){
+    var cx=140,cy=135,R=100,N=6;
+    function pt(i,r){var a=(-90+i*60)*Math.PI/180;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r];}
+    var s='<svg viewBox="0 0 280 272" width="100%" role="img" aria-label="Radar de maturité">';
+    [1,2,3,4].forEach(function(k){var p=[];for(var i=0;i<N;i++){var q=pt(i,R*k/4);p.push(q[0].toFixed(1)+','+q[1].toFixed(1));}
+      s+='<polygon points="'+p.join(' ')+'" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>';});
+    for(var i=0;i<N;i++){var q=pt(i,R);s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+'" stroke="rgba(255,255,255,.12)" stroke-width="1"/>';}
+    var poly=[],dots='';for(var i=0;i<N;i++){var v=dAvg(DIMS[i].id),q=pt(i,R*v/4);poly.push(q[0].toFixed(1)+','+q[1].toFixed(1));dots+='<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="3" fill="#7aa0d8"/>';}
+    s+='<polygon points="'+poly.join(' ')+'" fill="rgba(122,160,216,.22)" stroke="#7aa0d8" stroke-width="1.5"/>'+dots;
+    for(var i=0;i<N;i++){var q=pt(i,R+17);var anc=Math.abs(q[0]-cx)<6?'middle':(q[0]>cx?'start':'end');
+      s+='<text x="'+q[0].toFixed(1)+'" y="'+(q[1]+3).toFixed(1)+'" fill="#9fb0cd" font-size="9.5" text-anchor="'+anc+'" font-family="Montserrat,sans-serif">'+DIMS[i].short+'</text>';}
+    s+='</svg>';return s;
+  }
+
+  function paint(){
+    [].forEach.call(dimsEl.querySelectorAll('.scale button'),function(b){b.classList.toggle('on',answers[b.dataset.d][+b.dataset.ci]===+b.dataset.v);});
+    DIMS.forEach(function(d){document.getElementById('dsc-'+d.id).textContent=dScore(d.id);});
+  }
+
+  function renderRecs(){
+    var ranked=DIMS.slice().map(function(d){return {d:d,a:dAvg(d.id)};}).sort(function(x,y){return x.a-y.a;});
+    var top=ranked.slice(0,3);
+    recs.innerHTML=top.map(function(r,i){
+      var lv=r.d.lever,imp;
+      if(lv.kind==='value')imp='<div class="iv val">≈ '+valOf(lv.hw)+' k€</div><div class="il">valeur / an</div>';
+      else if(lv.kind==='risk')imp='<div class="iv risk">Risque</div><div class="il">sécurité & continuité</div>';
+      else imp='<div class="iv align">Cap</div><div class="il">alignement</div>';
+      return '<div class="rec"><div class="rk">'+(i+1)+'</div><div class="rb"><div class="rt2">'+lv.t+'</div>'+
+        '<div class="rd">Écart le plus marqué : « '+r.d.name.toLowerCase()+' », maturité '+r.a.toFixed(1)+'/4.</div>'+
+        '<span class="rtag">dimension '+r.d.short.toLowerCase()+'</span></div><div class="ri">'+imp+'</div></div>';
+    }).join('');
+
+    // feuille de route : 3 dimensions les plus faibles, séquencées
+    var hor=['Court terme · 0 à 3 mois','Moyen terme · 3 à 9 mois','Long terme · 9 à 18 mois'];
+    steps.innerHTML=top.map(function(r,i){
+      return '<div class="step"><div class="sh">'+hor[i]+'</div><div class="si">'+r.d.lever.t+'.</div></div>';
+    }).join('');
+
+    var notes=[];
+    if(CTX.type.val==='public'||CTX.secteur.val==='public')notes.push('Contexte public : accessibilité numérique, souveraineté des données et transparence au premier plan.');
+    if(CTX.taille.val==='tpe')notes.push('Contexte TPE : viser des outils simples, peu coûteux, à fort effet de levier immédiat.');
+    if(CTX.secteur.val==='sante'||CTX.secteur.val==='finance')notes.push('Secteur régulé : exigence renforcée sur la sécurité et la protection des données.');
+    if(CTX.zone.val==='intl')notes.push('Périmètre international : cohérence des outils et de la conformité entre pays.');
+    if(notes.length){ctxnote.hidden=false;ctxnote.textContent=notes.join(' ');}else{ctxnote.hidden=true;}
+  }
+
+  function update(){
+    var t=total();scoreVal.textContent=t;
+    var m=matOf(t);lvlName.textContent=m.n;lvlNum.textContent=m.num;lvlDesc.textContent=m.d;
+    radarEl.innerHTML=radar();
+    paint();renderRecs();
+  }
+
+  dimsEl.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;answers[b.dataset.d][+b.dataset.ci]=+b.dataset.v;update();});
+  document.getElementById('resetBtn').addEventListener('click',function(){DIMS.forEach(function(d){answers[d.id]=[0,0];});update();});
+  document.getElementById('methBtn').addEventListener('click',function(){var m=document.getElementById('methBox');var o=m.classList.toggle('open');this.textContent=o?'Masquer la méthode':'Voir la méthode de scoring';});
+
+  update();
+})();
+</script>
+</body>
+</html>

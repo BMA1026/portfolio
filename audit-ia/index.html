@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="../assets/favicon.svg">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<title>Audit IA Express</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* DA commune : premium achromatique (marbre/noir), couleur réservée aux données. Audit de maturité IA 360° */
+:root{
+  --bg:#ffffff; --surface:#f9f9f9; --panel:#f5f5f5; --dark:#111111; --dark-fg:#ffffff;
+  --ink:#1a1a1a; --ink2:#555555; --ink3:#737373; --faint:#8a8a8a; --line:#e0e0e0; --line2:#ececec;
+  --marble1:#f5f5f5; --marble2:#e8e8e8; --marble3:#f0f0f0; --marble4:#d8d8d8;
+  --nav:#1C3557; --nav2:#1A5276; --green:#1B5E3B; --green2:#2E7D52; --bord:#7D1F2A; --bronze:#7B5E3A; --slate:#3C4F63; --or:#9a7b33;
+  --nav-s:#eaeef4; --green-s:#e8f1ec; --bord-s:#f6ecee; --bronze-s:#f1ece3;
+  --shadow:0 1px 2px rgba(17,17,17,.05),0 10px 34px rgba(17,17,17,.07);
+  --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#8f8f8f; --faint:#7a7a7a; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bord-s:#241416; --bronze-s:#201c12;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#8f8f8f; --faint:#7a7a7a; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bord-s:#241416; --bronze-s:#201c12;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:500;text-transform:uppercase;letter-spacing:.13em;margin:0;text-wrap:balance}
+p{margin:0}
+.tnum{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+.marble{background:linear-gradient(135deg,var(--marble1) 0%,var(--marble2) 25%,var(--marble3) 40%,var(--marble4) 55%,var(--marble3) 70%,var(--marble1) 100%)}
+
+header.brand{background:var(--dark);color:var(--dark-fg);text-align:center;padding-block:16px;position:relative;z-index:3}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:9;background:var(--dark)}
+.wordmark{font-family:var(--serif);text-transform:uppercase;font-size:clamp(15px,3vw,19px);letter-spacing:.26em;font-weight:500}
+.submark{font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#9a9a9a;margin-top:6px}
+.theme-btn{position:absolute;top:50%;right:max(16px,env(safe-area-inset-right,0px));transform:translateY(-50%);appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:33px;height:33px;border-radius:50%;cursor:pointer;font-size:13px}
+.theme-btn:hover{border-color:#666;color:#fff}
+
+.hero{text-align:center;padding-block:44px 34px;border-bottom:1px solid var(--line)}
+.kicker{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.hero h1{font-size:clamp(32px,6vw,54px);letter-spacing:.1em;margin-top:16px;color:var(--ink)}
+.hero .sub{font-family:var(--sans);font-size:clamp(14px,2.1vw,16.5px);color:var(--ink2);max-width:66ch;margin:16px auto 0;font-weight:400;text-transform:none;letter-spacing:0}
+.promise{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink);margin-top:16px;letter-spacing:.02em}
+.ctxbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.ctxf{display:flex;flex-direction:column;gap:4px;text-align:left}
+.ctxf label{font-family:var(--sans);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600;padding-left:2px}
+.ctxf select{appearance:none;font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:0;padding:8px 30px 8px 11px;cursor:pointer;min-width:130px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 9px center}
+.cred{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:30px}
+.cred .c{background:var(--bg);padding:15px 10px;text-align:center}
+.cred .n{font-family:var(--serif);font-size:clamp(17px,3vw,24px);font-weight:600;letter-spacing:.02em}
+.cred .n.g{color:var(--green)} .cred .n.b{color:var(--bronze)} .cred .n.nv{color:var(--nav)}
+.cred .l{font-family:var(--sans);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+
+section{padding-block:42px}
+.shead{text-align:center;margin-bottom:6px}
+.shead .st{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.shead h2{font-size:clamp(21px,3.3vw,29px);letter-spacing:.09em;margin-top:11px}
+.rule{width:52px;height:1px;background:var(--ink);margin:15px auto 0}
+.shead p{font-family:var(--sans);text-transform:none;letter-spacing:0;color:var(--ink2);max-width:66ch;margin:13px auto 0;font-size:14px}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;margin:20px auto 0;max-width:720px}
+.legend span{font-family:var(--sans);font-size:11px;color:var(--ink2);display:inline-flex;align-items:center;gap:5px}
+.legend b{font-family:var(--mono);font-size:10px;color:var(--nav);border:1px solid var(--line);width:17px;height:17px;display:inline-grid;place-items:center}
+
+.diag{margin-top:24px;display:grid;grid-template-columns:1fr 310px;gap:26px;align-items:start}
+.dims{display:flex;flex-direction:column;gap:16px;min-width:0}
+.dim{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.dim-h{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+.dim-h .di{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--nav);width:25px;height:25px;border:1px solid var(--nav);display:grid;place-items:center;flex:none}
+.dim-h .dn{font-family:var(--serif);font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);line-height:1.3}
+.dim-h .dsc{margin-left:auto;font-family:var(--serif);font-size:14px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.dim-h .dsc b{color:var(--nav)}
+.item{padding:12px 16px;border-top:1px solid var(--line2)}
+.item:first-child{border-top:none}
+.item .q{font-family:var(--sans);font-size:13px;color:var(--ink);margin-bottom:9px;text-transform:none;letter-spacing:0}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.scale button{appearance:none;cursor:pointer;font-family:var(--mono);font-size:12px;padding:8px 3px;border:1px solid var(--line);background:var(--bg);color:var(--ink2);transition:.12s}
+.scale button:hover{border-color:var(--ink3)}
+.scale button.on{background:var(--nav);border-color:var(--nav);color:#fff;font-weight:500}
+
+.result{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--dark);color:var(--dark-fg);padding:22px 20px;box-shadow:var(--shadow)}
+.result .rt{font-family:var(--serif);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#9a9a9a;text-align:center}
+.score{font-family:var(--serif);text-align:center;margin-top:8px}
+.score .big{font-size:50px;font-weight:600;line-height:1}
+.score .max{font-size:18px;color:#8f8f8f}
+.lvlbadge{text-align:center;margin-top:10px;padding:10px;border:1px solid #333}
+.lvlbadge .ln{font-family:var(--serif);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#7aa0d8}
+.lvlbadge .lnum{font-family:var(--mono);font-size:10px;color:#9a9a9a;margin-top:3px}
+.lvlbadge .ld{font-family:var(--sans);font-size:11px;color:#b4b4b4;margin-top:6px;text-transform:none;letter-spacing:0;line-height:1.5}
+.estv{margin-top:14px;background:rgba(255,255,255,.04);border:1px solid #2a2a2a;padding:12px;text-align:center}
+.estv .ev{font-family:var(--serif);font-size:22px;font-weight:600;color:#fff}
+.estv .el{font-family:var(--sans);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:#9a9a9a;margin-top:3px}
+.reset{margin-top:14px;width:100%;appearance:none;cursor:pointer;background:transparent;border:1px solid #3a3a3a;color:#b4b4b4;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:9px}
+.reset:hover{border-color:#666;color:#fff}
+.privacy{font-family:var(--sans);font-size:10px;color:#7a7a7a;text-align:center;margin-top:13px;line-height:1.5;text-transform:none;letter-spacing:0}
+
+/* profil + priorités */
+.profile{margin-top:28px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:20px}
+.profile h3{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:16px}
+.prow{display:grid;grid-template-columns:200px 1fr 34px;gap:12px;align-items:center;padding:7px 0}
+.prow .pn{font-family:var(--sans);font-size:12.5px;color:var(--ink);text-transform:none;letter-spacing:0}
+.ptrack{height:8px;background:var(--panel);border:1px solid var(--line);position:relative}
+.ptrack i{display:block;height:100%;background:var(--nav);transition:width .4s}
+.prow .pv{font-family:var(--mono);font-size:12px;color:var(--ink2);text-align:right}
+@media(max-width:560px){.prow{grid-template-columns:1fr 50px}.prow .ptrack{grid-column:1/-1;order:3}}
+
+.prio{margin-top:22px}
+.prio .ph{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;text-align:center}
+.ctxnote{font-family:var(--sans);font-size:12px;color:var(--ink2);text-align:center;margin-bottom:16px;text-transform:none;letter-spacing:0;background:var(--nav-s);border:1px solid var(--line);padding:9px 14px}
+.recs{display:flex;flex-direction:column;gap:12px}
+.rec{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--nav);padding:15px 17px;box-shadow:var(--shadow)}
+.rec .rk{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink3);width:24px;text-align:center}
+.rec .rb{min-width:0}
+.rec .rt2{font-family:var(--serif);font-size:15px;letter-spacing:.04em;text-transform:none;color:var(--ink);font-weight:600}
+.rec .rd{font-family:var(--sans);font-size:12px;color:var(--ink2);margin-top:3px;text-transform:none;letter-spacing:0}
+.rec .rtag{display:inline-block;font-family:var(--sans);font-size:10.5px;margin-top:8px;padding:3px 9px;background:var(--panel);border:1px solid var(--line);color:var(--ink2)}
+.rec .ri{text-align:right;white-space:nowrap}
+.rec .ri .iv{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.01em}
+.rec .ri .iv.val{color:var(--bronze)} .rec .ri .iv.risk{color:var(--bord)} .rec .ri .iv.align{color:var(--nav)}
+.rec .ri .il{font-family:var(--sans);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.methbtn{display:block;margin:16px auto 0;appearance:none;cursor:pointer;background:none;border:none;font-family:var(--sans);font-size:11px;color:var(--nav);text-decoration:underline;text-underline-offset:3px}
+.method-box{display:none;background:var(--panel);border:1px solid var(--line);padding:15px 17px;margin-top:14px;font-family:var(--sans);font-size:12px;color:var(--ink2);text-transform:none;letter-spacing:0;line-height:1.7}
+.method-box.open{display:block}
+.method-box code{font-family:var(--mono);font-size:11px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;color:var(--nav)}
+.method-box b{color:var(--ink);font-weight:600}
+
+.offre{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.tier{background:var(--bg);border:1px solid var(--line);padding:22px 20px;position:relative}
+.tier.feat{border-color:var(--ink);box-shadow:var(--shadow)}
+.tier .tn{font-family:var(--serif);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.tier .th{font-family:var(--serif);font-size:18px;letter-spacing:.08em;text-transform:uppercase;margin-top:8px;font-weight:600}
+.tier .tdur{font-family:var(--sans);font-size:12px;color:var(--nav);font-weight:500;margin-top:4px}
+.tier ul{list-style:none;padding:0;margin:15px 0 0;display:flex;flex-direction:column;gap:8px}
+.tier li{font-family:var(--sans);font-size:12.5px;color:var(--ink2);padding-left:17px;position:relative;line-height:1.5}
+.tier li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:1px;background:var(--ink)}
+.tier .feat-tag{position:absolute;top:-1px;right:-1px;background:var(--ink);color:var(--bg);font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px}
+.tarif{text-align:center;font-family:var(--sans);font-size:12px;color:var(--ink3);margin-top:24px;text-transform:none;letter-spacing:0}
+
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.mcard{text-align:center;padding:10px}
+.mcard .mi{font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--nav);text-transform:uppercase}
+.mcard .md{font-family:var(--sans);font-size:12px;color:var(--ink2);margin-top:7px;text-transform:none;letter-spacing:0;line-height:1.55}
+.refs{font-family:var(--sans);font-size:11.5px;color:var(--ink3);text-align:center;margin-top:24px;text-transform:none;letter-spacing:0;line-height:1.7;max-width:80ch;margin-left:auto;margin-right:auto}
+
+footer{background:var(--dark);color:#9a9a9a;text-align:center;padding-block:32px 40px}
+footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:15px;letter-spacing:.24em}
+footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;margin-top:7px;color:#bfbfbf}
+footer .fnote{font-family:var(--sans);font-size:10.5px;color:#7a7a7a;max-width:82ch;margin:16px auto 0;line-height:1.7}
+
+@media (max-width:860px){.diag{grid-template-columns:1fr}.result{position:relative;top:0;order:-1}}
+@media (max-width:560px){.cred{grid-template-columns:repeat(2,1fr)}.tiers{grid-template-columns:1fr}.method{grid-template-columns:repeat(2,1fr)}.rec{grid-template-columns:1fr;gap:10px}.rec .rk{display:none}.rec .ri{text-align:left}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="brand"><a href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a>
+  <div class="wordmark">Baba Moustapha Amadou</div>
+  <div class="submark">Architecte de solutions IA · Démonstrateur</div>
+  <button class="theme-btn" id="themeBtn" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>
+</header>
+
+<div class="marble"><div class="wrap">
+  <div class="hero">
+    <div class="kicker">Application · Audit de maturité IA 360°</div>
+    <h1>Audit IA Express</h1>
+    <p class="sub">Situez la maturité IA de votre organisation sur six dimensions reconnues, obtenez un niveau précis et des priorités chiffrées. Un cadre unique, de la PME au grand compte, du privé au public.</p>
+    <p class="promise">« Mesurer d'abord, automatiser ensuite. »</p>
+    <div class="ctxbar" id="ctxbar"></div>
+    <div class="cred">
+      <div class="c"><div class="n nv">6</div><div class="l">dimensions de maturité</div></div>
+      <div class="c"><div class="n">5</div><div class="l">niveaux · CMMI</div></div>
+      <div class="c"><div class="n g">−80 %</div><div class="l">temps · pilote compte rendu</div></div>
+      <div class="c"><div class="n b">3</div><div class="l">pilotes mesurés</div></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <section>
+    <div class="shead">
+      <div class="st">Le diagnostic</div>
+      <h2>Six dimensions, douze constats</h2>
+      <div class="rule"></div>
+      <p>Pour chaque constat, situez votre organisation sur l'échelle de maturité. Niveau, profil et priorités se calculent en direct.</p>
+    </div>
+    <div class="legend" id="legend"></div>
+
+    <div class="diag">
+      <div class="dims" id="dims"></div>
+      <aside class="result" id="result">
+        <div class="rt">Maturité IA globale</div>
+        <div class="score"><span class="big tnum" id="scoreVal">0</span><span class="max"> / 48</span></div>
+        <div class="lvlbadge"><div class="ln" id="lvlName">·</div><div class="lnum" id="lvlNum"></div><div class="ld" id="lvlDesc"></div></div>
+        <div class="estv"><div class="ev tnum" id="estVal">·</div><div class="el">valeur activable · par an</div></div>
+        <button class="reset" id="resetBtn">Réinitialiser</button>
+        <p class="privacy">Aucune donnée saisie n'est transmise ni enregistrée. Calcul local, conforme RGPD &amp; AI Act.</p>
+      </aside>
+    </div>
+
+    <div class="profile">
+      <h3>Profil de maturité par dimension</h3>
+      <div id="profileRows"></div>
+    </div>
+
+    <div class="prio">
+      <div class="ph">Priorités d'action</div>
+      <div class="ctxnote" id="ctxnote" hidden></div>
+      <div class="recs" id="recs"></div>
+      <button class="methbtn" id="methBtn">Voir la méthode de scoring et de calcul</button>
+      <div class="method-box" id="methBox">
+        <b>Échelle de maturité</b> (type CMMI) : <code>0</code> Inexistant, <code>1</code> Initial, <code>2</code> Défini, <code>3</code> Géré, <code>4</code> Optimisé. Chaque dimension porte deux constats notés de 0 à 4, soit un score sur 48. Le niveau global reprend une échelle à cinq paliers (Sensibilisation à Transformationnel).<br>
+        <b>Valeur activable</b> ≈ heures gagnées par semaine × taux horaire valorisé × 46 semaines, sommée sur les leviers opérationnels à faible maturité. Taux de référence : PME <code>45 €/h</code>, ETI <code>75 €/h</code>, Grand compte <code>120 €/h</code>. Les leviers de gouvernance et de stratégie sont exprimés en maîtrise du risque et en alignement, pas en euros.<br>
+        <b>Retour sur investissement</b> : méthode Phillips (2003), <code>ROI = (valeur annuelle − coût du programme) / coût du programme × 100</code>. Ordres de grandeur, pas un engagement contractuel.
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="offre"><div class="wrap">
+  <div class="shead"><div class="st">Passer à l'action</div><h2>Trois niveaux d'accompagnement</h2><div class="rule"></div>
+    <p>Le diagnostic est déjà un livrable, autonome et facturable. Selon votre niveau de maturité, il ouvre un déploiement progressif et mesuré.</p></div>
+  <div class="tiers">
+    <div class="tier"><div class="tn">Niveau 1</div><div class="th">Audit IA 360°</div><div class="tdur">1 à 2 jours</div>
+      <ul><li>Diagnostic 6 dimensions, niveau et profil</li><li>Cartographie des écarts et des risques</li><li>Feuille de route priorisée et ROI prévisionnel</li><li>Livrable autonome et facturable</li></ul></div>
+    <div class="tier feat"><div class="feat-tag">Recommandé</div><div class="tn">Niveau 2</div><div class="th">Audit + Mise en œuvre</div><div class="tdur">2 à 4 jours</div>
+      <ul><li>Tout le niveau 1</li><li>Implémentation du levier prioritaire</li><li>Cadrage conformité RGPD et AI Act</li><li>Formation des équipes et suivi des gains</li></ul></div>
+    <div class="tier"><div class="tn">Niveau 3</div><div class="th">Accompagnement continu</div><div class="tdur">Forfait mensuel</div>
+      <ul><li>Montée en maturité dimension par dimension</li><li>Mesure des gains et reporting</li><li>Gouvernance et maîtrise des coûts</li><li>Ajustement selon les résultats</li></ul></div>
+  </div>
+  <p class="tarif">Tarification indicative : 80 € / heure. Gains mesurés selon la méthode Phillips (2003).</p>
+</div></section>
+
+<div class="wrap">
+  <section>
+    <div class="shead"><div class="st">La méthode</div><h2>Pourquoi c'est crédible</h2><div class="rule"></div></div>
+    <div class="method">
+      <div class="mcard"><div class="mi">Référencé</div><div class="md">Dimensions et niveaux alignés sur les modèles de maturité IA reconnus, pas une grille maison.</div></div>
+      <div class="mcard"><div class="mi">Transposable</div><div class="md">Le même cadre vaut de la PME au grand compte, du privé au public ; le contexte adapte les priorités.</div></div>
+      <div class="mcard"><div class="mi">Mesuré</div><div class="md">Chaque levier opérationnel est chiffré avant/après, méthode de calcul affichée.</div></div>
+      <div class="mcard"><div class="mi">Conforme</div><div class="md">Gouvernance RGPD et AI Act intégrée au diagnostic, pas ajoutée après coup.</div></div>
+    </div>
+    <p class="refs">Socle de référence : modèles de maturité IA (Gartner AI Maturity Model, MITRE AI Maturity Model, cadres d'adoption IA de Google Cloud et AWS), règlement européen sur l'IA (AI Act) et RGPD pour la gouvernance, méthode Phillips (2003) pour le retour sur investissement. Repères de performance issus de pilotes réels, présentés par secteur sans donnée nominative.</p>
+  </section>
+</div>
+
+<footer>
+  <div class="fm">Baba Moustapha Amadou</div>
+  <div class="fs">Audit IA Express · Démonstrateur</div>
+  <p class="fnote">Démonstration de méthode. Les repères de performance proviennent de projets pilotes réels, présentés par secteur sans aucune donnée nominative. Résultats contextuels, non contractuels. Aucune donnée personnelle collectée.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var r=document.documentElement,c=r.getAttribute('data-theme');
+    var d=c?c==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+    r.setAttribute('data-theme',d?'light':'dark');
+  });
+
+  /* contexte */
+  var CTX={
+    taille:{label:'Taille',opts:[['pme','PME'],['eti','ETI'],['grand','Grand compte']],val:'eti'},
+    type:{label:'Organisation',opts:[['prive','Privé'],['public','Public'],['asso','Association']],val:'prive'},
+    secteur:{label:'Secteur',opts:[['industrie','Industrie'],['services','Services'],['commerce','Commerce'],['sante','Santé'],['finance','Finance'],['public','Secteur public'],['autre','Autre']],val:'services'},
+    zone:{label:'Zone',opts:[['fr','France'],['ue','Union européenne'],['intl','International']],val:'fr'}
+  };
+  var RATE={pme:45,eti:75,grand:120};
+  var ctxbar=document.getElementById('ctxbar');
+  ctxbar.innerHTML=Object.keys(CTX).map(function(k){
+    var f=CTX[k];
+    return '<div class="ctxf"><label for="ctx-'+k+'">'+f.label+'</label><select id="ctx-'+k+'" data-k="'+k+'">'+
+      f.opts.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===f.val?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></div>';
+  }).join('');
+  ctxbar.addEventListener('change',function(e){var s=e.target.closest('select');if(!s)return;CTX[s.dataset.k].val=s.value;update();});
+  function rate(){return RATE[CTX.taille.val];}
+
+  /* échelle */
+  var LEVELS=['Inexistant','Initial','Défini','Géré','Optimisé'];
+  document.getElementById('legend').innerHTML=LEVELS.map(function(l,i){return '<span><b>'+i+'</b>'+l+'</span>';}).join('');
+
+  /* 6 dimensions de maturité IA (référentiels Gartner / MITRE / CAF-AI) */
+  var DIMS=[
+    {id:'strat',name:'Stratégie & cas d’usage',
+      items:['Une vision IA est formalisée et portée par la direction','Les cas d’usage sont priorisés par la valeur, pas par la technologie'],
+      lever:{t:'Formaliser une feuille de route IA priorisée par la valeur',kind:'align'}},
+    {id:'data',name:'Données & infrastructure',
+      items:['Les données utiles sont disponibles, de qualité et accessibles','Le socle technique (stockage, calcul, intégration) est adapté'],
+      lever:{t:'Mettre en qualité et cataloguer les données prioritaires',kind:'value',hw:3}},
+    {id:'tech',name:'Technologie & outillage',
+      items:['Les outils IA sont intégrés au système d’information, pas en silo','Le cycle de vie des solutions est outillé (tests, suivi, LLMOps)'],
+      lever:{t:'Intégrer les outils IA au SI via API et automatisations',kind:'value',hw:3}},
+    {id:'skill',name:'Compétences & culture',
+      items:['Les compétences IA internes et l’acculturation progressent','La conduite du changement et l’adoption sont pilotées'],
+      lever:{t:'Acculturer les équipes et cadrer le prompting',kind:'value',hw:2}},
+    {id:'gov',name:'Gouvernance, éthique & conformité',
+      items:['Un cadre RGPD, AI Act et sécurité encadre les usages IA','Les risques, biais et la supervision humaine sont gérés'],
+      lever:{t:'Déployer une charte IA et une cartographie RGPD / AI Act',kind:'risk'}},
+    {id:'scale',name:'Valeur, mesure & passage à l’échelle',
+      items:['Les gains (ROI) sont mesurés et portés par un sponsor','Les solutions sont industrialisées au-delà des POC'],
+      lever:{t:'Industrialiser les POC probants et mesurer le ROI',kind:'value',hw:4}}
+  ];
+
+  /* exemple pré-rempli réaliste (maturité émergente) */
+  var answers={strat:[2,1],data:[1,2],tech:[2,1],skill:[1,1],gov:[1,0],scale:[1,1]};
+
+  var dimsEl=document.getElementById('dims');
+  dimsEl.innerHTML=DIMS.map(function(d,di){
+    var items=d.items.map(function(q,ci){
+      var btns=[0,1,2,3,4].map(function(v){return '<button data-d="'+d.id+'" data-ci="'+ci+'" data-v="'+v+'">'+v+'</button>';}).join('');
+      return '<div class="item"><div class="q">'+q+'</div><div class="scale">'+btns+'</div></div>';
+    }).join('');
+    return '<div class="dim"><div class="dim-h"><span class="di">'+(di+1)+'</span><span class="dn">'+d.name+'</span><span class="dsc"><b id="dsc-'+d.id+'">0</b> / 8</span></div>'+items+'</div>';
+  }).join('');
+
+  function dScore(id){return answers[id].reduce(function(a,b){return a+b;},0);}
+  function dAvg(id){return dScore(id)/2;}
+  function total(){return DIMS.reduce(function(s,d){return s+dScore(d.id);},0);}
+  function valOf(hw){return Math.round(hw*rate()*46/1000);}
+
+  var scoreVal=document.getElementById('scoreVal'),lvlName=document.getElementById('lvlName'),lvlNum=document.getElementById('lvlNum'),
+      lvlDesc=document.getElementById('lvlDesc'),estVal=document.getElementById('estVal'),
+      profileRows=document.getElementById('profileRows'),recs=document.getElementById('recs'),
+      ctxnote=document.getElementById('ctxnote');
+
+  var MAT=[
+    {max:11,n:'Sensibilisation',num:'Niveau 1 / 5',d:'L’IA est explorée de façon ponctuelle, sans cadre. Priorité : structurer et cibler la valeur.'},
+    {max:23,n:'Émergent',num:'Niveau 2 / 5',d:'Des initiatives existent, encore isolées. Priorité : fiabiliser données et compétences.'},
+    {max:35,n:'Opérationnel',num:'Niveau 3 / 5',d:'L’IA produit de la valeur sur des cas définis. Priorité : gouvernance et passage à l’échelle.'},
+    {max:43,n:'Systémique',num:'Niveau 4 / 5',d:'L’IA est intégrée et gouvernée. Priorité : optimiser et étendre le périmètre.'},
+    {max:48,n:'Transformationnel',num:'Niveau 5 / 5',d:'L’IA est un levier stratégique maîtrisé de bout en bout.'}
+  ];
+  function matOf(t){for(var i=0;i<MAT.length;i++)if(t<=MAT[i].max)return MAT[i];return MAT[MAT.length-1];}
+
+  function paint(){
+    [].forEach.call(dimsEl.querySelectorAll('.scale button'),function(b){
+      b.classList.toggle('on',answers[b.dataset.d][+b.dataset.ci]===+b.dataset.v);
+    });
+    DIMS.forEach(function(d){document.getElementById('dsc-'+d.id).textContent=dScore(d.id);});
+  }
+
+  function renderProfile(){
+    profileRows.innerHTML=DIMS.map(function(d){
+      var a=dAvg(d.id);
+      return '<div class="prow"><span class="pn">'+d.name+'</span><div class="ptrack"><i style="width:'+(a/4*100)+'%"></i></div><span class="pv">'+a.toFixed(1)+'/4</span></div>';
+    }).join('');
+  }
+
+  function renderRecs(){
+    var ranked=DIMS.slice().map(function(d){return {d:d,a:dAvg(d.id)};}).sort(function(x,y){return x.a-y.a;});
+    var top=ranked.slice(0,3);
+    recs.innerHTML=top.map(function(r,i){
+      var lv=r.d.lever,imp;
+      if(lv.kind==='value')imp='<div class="iv val">≈ '+valOf(lv.hw)+' k€</div><div class="il">valeur / an</div>';
+      else if(lv.kind==='risk')imp='<div class="iv risk">Risque</div><div class="il">conformité maîtrisée</div>';
+      else imp='<div class="iv align">Cap</div><div class="il">alignement stratégique</div>';
+      return '<div class="rec"><div class="rk">'+(i+1)+'</div><div class="rb"><div class="rt2">'+lv.t+'</div>'+
+        '<div class="rd">Écart le plus marqué : « '+r.d.name.toLowerCase()+' », maturité '+r.a.toFixed(1)+'/4.</div>'+
+        '<span class="rtag">dimension '+r.d.name.toLowerCase()+'</span></div><div class="ri">'+imp+'</div></div>';
+    }).join('');
+
+    // note de contexte
+    var notes=[];
+    if(CTX.type.val==='public'||CTX.secteur.val==='public')notes.push('Contexte public : priorité à la transparence, à la souveraineté des données et à la conformité AI Act.');
+    if(CTX.type.val==='asso')notes.push('Contexte associatif : privilégier des outils sobres et à faible coût, montée en compétence interne.');
+    if(CTX.zone.val!=='fr')notes.push('Périmètre '+(CTX.zone.val==='ue'?'UE':'international')+' : harmoniser la conformité RGPD et AI Act sur toutes les entités.');
+    if(CTX.secteur.val==='sante'||CTX.secteur.val==='finance')notes.push('Secteur régulé : exigence renforcée sur la traçabilité, la sécurité et la supervision humaine.');
+    if(notes.length){ctxnote.hidden=false;ctxnote.textContent=notes.join(' ');}else{ctxnote.hidden=true;}
+  }
+
+  function update(){
+    var t=total();scoreVal.textContent=t;
+    var m=matOf(t);lvlName.textContent=m.n;lvlNum.textContent=m.num;lvlDesc.textContent=m.d;
+    var v=0;DIMS.forEach(function(d){if(d.lever.kind==='value'&&dAvg(d.id)<3)v+=valOf(d.lever.hw);});
+    estVal.textContent=v>0?'≈ '+v+' k€':'·';
+    paint();renderProfile();renderRecs();
+  }
+
+  dimsEl.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;answers[b.dataset.d][+b.dataset.ci]=+b.dataset.v;update();});
+  document.getElementById('resetBtn').addEventListener('click',function(){DIMS.forEach(function(d){answers[d.id]=[0,0];});update();});
+  document.getElementById('methBtn').addEventListener('click',function(){var m=document.getElementById('methBox');var o=m.classList.toggle('open');this.textContent=o?'Masquer la méthode':'Voir la méthode de scoring et de calcul';});
+
+  update();
+})();
+</script>
+</body>
+</html>

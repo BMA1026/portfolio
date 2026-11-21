@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="../assets/favicon.svg">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<title>Suivi de chantier photovoltaïque</title>
+<meta name="description" content="Démonstration jouable : une fiche de terrain remplie par le poseur circule dans une chaîne d'automatisation, alimente un tableau de bord et un agent de terrain, sans double saisie.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#ffffff; --surface:#f9f9f9; --panel:#f5f5f5; --dark:#111111; --dark-fg:#ffffff;
+  --ink:#1a1a1a; --ink2:#555555; --ink3:#737373; --line:#e0e0e0; --line2:#ececec;
+  --marble1:#f5f5f5; --marble2:#e8e8e8; --marble3:#f0f0f0; --marble4:#d8d8d8;
+  --nav:#1C3557; --nav2:#1A5276; --green:#1B5E3B; --green2:#2E7D52; --bord:#7D1F2A; --bronze:#7B5E3A; --slate:#3C4F63; --or:#9a7b33;
+  --nav-s:#eaeef4; --green-s:#e8f1ec; --bronze-s:#f1ece3; --slate-s:#edeff3; --bord-s:#f4e9ea;
+  --shadow:0 1px 2px rgba(17,17,17,.05),0 10px 34px rgba(17,17,17,.07);
+  --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --maxw:1000px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#888888; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bronze-s:#201c12; --slate-s:#191f28; --bord-s:#241416;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111111; --surface:#171717; --panel:#1c1c1c; --dark:#000000; --dark-fg:#ffffff;
+  --ink:#f3f3f3; --ink2:#b4b4b4; --ink3:#888888; --line:#333333; --line2:#262626;
+  --marble1:#1d1d1d; --marble2:#161616; --marble3:#202020; --marble4:#121212;
+  --nav:#5a82c0; --nav2:#4f9bc4; --green:#5aa77e; --green2:#6bba8f; --bord:#c87682; --bronze:#b89a6a; --slate:#8094ac; --or:#cdb05e;
+  --nav-s:#17202f; --green-s:#13241c; --bronze-s:#201c12; --slate-s:#191f28; --bord-s:#241416;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;font-size:16px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:.11em;margin:0;text-wrap:balance;text-transform:uppercase}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+.tnum{font-variant-numeric:tabular-nums}
+.marble{background:linear-gradient(135deg,var(--marble1) 0%,var(--marble2) 25%,var(--marble3) 40%,var(--marble4) 55%,var(--marble3) 70%,var(--marble1) 100%)}
+.eyebrow{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+
+header.brand{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--dark);color:var(--dark-fg);border-bottom:1px solid #262626;text-align:center}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--dark)}
+header.brand .in{position:relative;padding:12px 56px}
+.wm{font-family:var(--serif);text-transform:uppercase;font-size:14px;letter-spacing:.2em;font-weight:500}
+.wmsub{font-family:var(--sans);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:#9a9a9a;margin-top:3px}
+.theme-btn{position:absolute;top:50%;right:max(16px,env(safe-area-inset-right,0px));transform:translateY(-50%);appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:12px}
+.theme-btn:hover{border-color:#666;color:#fff}
+
+.hero{padding-block:52px 40px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{display:block;text-align:center}
+.hero h1{font-size:clamp(27px,5vw,46px);letter-spacing:.05em;color:var(--ink);line-height:1.14;text-align:center;margin-top:14px}
+.hero .lead{font-family:var(--sans);max-width:62ch;margin:20px auto 0;color:var(--ink2);font-size:16px;text-align:center}
+.hero .lead b{color:var(--ink);font-weight:600}
+.metrics{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics .in{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line)}
+@media(min-width:720px){.metrics .in{grid-template-columns:repeat(4,1fr)}}
+.metric{background:var(--panel);padding:22px 14px;text-align:center}
+.metric .n{font-family:var(--serif);font-weight:600;font-size:clamp(21px,3.4vw,29px);letter-spacing:.01em}
+.metric:nth-child(1) .n{color:var(--nav)} .metric:nth-child(2) .n{color:var(--green)} .metric:nth-child(3) .n{color:var(--bronze)} .metric:nth-child(4) .n{color:var(--ink)}
+.metric .l{font-family:var(--sans);color:var(--ink2);font-size:11px;margin-top:6px}
+
+section{padding-block:50px}
+.shead{text-align:center;max-width:62ch;margin:0 auto 30px}
+.shead h2{font-size:clamp(21px,3.4vw,28px);letter-spacing:.09em;margin-top:10px}
+.rule{width:52px;height:1px;background:var(--ink);margin:14px auto 0}
+.shead p{font-family:var(--sans);color:var(--ink2);margin-top:13px;font-size:14.5px}
+
+.app{display:grid;grid-template-columns:1fr;gap:22px}
+@media(min-width:860px){.app{grid-template-columns:.92fr 1.08fr}}
+.card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:clamp(18px,3vw,26px)}
+.card h3{font-family:var(--serif);font-size:16px;letter-spacing:.05em;text-transform:none;font-weight:600;margin-bottom:4px}
+.card .hint{font-family:var(--sans);color:var(--ink3);font-size:12px;margin-bottom:16px}
+
+/* Fiche de terrain, allure mobile */
+.phone{max-width:420px;margin:0 auto}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1 / -1}
+label{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+input,select{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:9px 10px;width:100%}
+input:focus,select:focus{outline:2px solid var(--nav);outline-offset:1px;border-color:var(--nav)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font-family:var(--sans);font-size:12px;color:var(--ink2);background:var(--panel);border:1px solid var(--line);padding:7px 11px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--nav);color:#fff;border-color:var(--nav)}
+.submit{appearance:none;cursor:pointer;width:100%;margin-top:16px;font-family:var(--sans);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:11.5px;padding:13px;border:1px solid var(--nav);background:var(--nav);color:#fff}
+.submit:hover{background:transparent;color:var(--nav)}
+.ferr{font-family:var(--sans);font-size:12px;color:var(--bord);margin-top:10px;min-height:1em}
+
+/* Pipeline n8n */
+.pipe{display:flex;flex-direction:column;gap:9px}
+.node{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--bg);padding:11px 13px;opacity:.45;transition:opacity .25s,border-color .25s,background .25s}
+.node.on{opacity:1;border-color:var(--nav);background:var(--nav-s)}
+.node.done{opacity:1}
+.node .dotn{width:9px;height:9px;border-radius:50%;background:var(--ink3);flex:none}
+.node.on .dotn{background:var(--nav)} .node.done .dotn{background:var(--green)}
+.node .nl{font-family:var(--sans);font-size:13px;color:var(--ink);font-weight:500}
+.node .nk{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-left:auto;text-transform:uppercase;letter-spacing:.05em}
+.pipe-note{font-family:var(--sans);font-size:11.5px;color:var(--ink3);margin-top:12px}
+.pipe-note b{color:var(--green);font-weight:600}
+
+/* Tableau de bord */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:18px}
+@media(min-width:560px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--surface);padding:15px 10px;text-align:center}
+.kpi .n{font-family:var(--serif);font-weight:600;font-size:22px}
+.kpi:nth-child(1) .n{color:var(--nav)} .kpi:nth-child(2) .n{color:var(--green)} .kpi:nth-child(3) .n{color:var(--bronze)} .kpi:nth-child(4) .n{color:var(--bord)}
+.kpi .l{font-family:var(--sans);font-size:10.5px;color:var(--ink2);margin-top:5px}
+.bars{margin:4px 0 20px}
+.bar{display:grid;grid-template-columns:96px 1fr 54px;align-items:center;gap:10px;margin:7px 0}
+.bar .bl{font-family:var(--sans);font-size:12px;color:var(--ink2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .bt{height:14px;background:var(--line2);position:relative;overflow:hidden}
+.bar .bf{position:absolute;inset:0 auto 0 0;background:var(--nav);width:0;transition:width .5s ease}
+.bar .bv{font-family:var(--mono);font-size:11px;color:var(--ink2);text-align:right}
+.tblwrap{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{font-family:var(--sans);font-size:12.5px;text-align:left;padding:9px 11px;border-bottom:1px solid var(--line2)}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);background:var(--panel)}
+td .st{font-family:var(--mono);font-size:10px;letter-spacing:.03em;padding:2px 7px;border:1px solid var(--line);white-space:nowrap}
+.st.ok{color:var(--green);background:var(--green-s);border-color:transparent}
+.st.go{color:var(--nav);background:var(--nav-s);border-color:transparent}
+.st.al{color:var(--bord);background:var(--bord-s);border-color:transparent}
+tr.fresh td{background:var(--nav-s)}
+.row-note{font-family:var(--sans);font-size:11.5px;color:var(--ink3);margin-top:10px}
+
+/* Assistant terrain */
+.assist{max-width:720px;margin:0 auto}
+.suggest{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.suggest button{font-family:var(--sans);font-size:12px;color:var(--nav);background:var(--nav-s);border:1px solid transparent;padding:7px 11px;cursor:pointer;text-align:left}
+.suggest button:hover{border-color:var(--nav)}
+.chatbox{border:1px solid var(--line);background:var(--bg);min-height:120px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:10px;align-items:flex-start}
+.msg .who{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);width:46px;flex:none;padding-top:3px}
+.msg .bub{font-family:var(--sans);font-size:13.5px;color:var(--ink);line-height:1.6}
+.msg.a .bub{color:var(--ink)}
+.src{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--bronze);border:1px solid var(--line);padding:2px 7px;margin-top:7px}
+.ask{display:flex;gap:9px;margin-top:12px}
+.ask input{flex:1}
+.ask button{font-family:var(--sans);font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:11px;padding:0 16px;border:1px solid var(--nav);background:var(--nav);color:#fff;cursor:pointer}
+.ask button:hover{background:transparent;color:var(--nav)}
+
+.limits{background:var(--panel);border:1px solid var(--line);padding:18px 20px;max-width:760px;margin:0 auto}
+.limits .l{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:9px}
+.limits p{font-family:var(--sans);font-size:13px;color:var(--ink2)}
+footer{background:var(--dark);color:#9a9a9a;text-align:center;padding-block:28px 38px;margin-top:40px}
+footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:13px;letter-spacing:.22em}
+footer .fs{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;margin-top:8px;color:#8a8a8a}
+footer .fn{font-family:var(--sans);font-size:10px;letter-spacing:.04em;margin-top:10px;color:#777}
+@media (prefers-reduced-motion:no-preference){a,.submit,.ask button,.seg button,.node{transition:color .15s,background .15s,border-color .15s,opacity .25s}}
+</style>
+
+<header class="brand"><a id="bmaback" href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a><script>(function(){try{var b=document.getElementById("bmaback");if(location.search.indexOf("from=junior")>-1||document.referrer.indexOf("/junior/")>-1){b.setAttribute("href","../junior/");}}catch(e){}})();</script><div class="in">
+  <div class="wm">Baba Moustapha Amadou</div>
+  <div class="wmsub">Démonstration · Suivi de chantier</div>
+  <button class="theme-btn" id="themeBtn" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>
+</div></header>
+
+<main>
+<div class="marble"><div class="wrap">
+  <section class="hero">
+    <span class="eyebrow">Démonstration jouable · pensée pour HDR Énergie</span>
+    <h1>Du terrain au tableau de bord, sans double saisie</h1>
+    <p class="lead">Le poseur remplit une fiche de fin de chantier sur son téléphone. La chaîne la normalise, écarte les doublons, met à jour la fiche client et le tableau de bord, et prévient en cas d'anomalie. Un <b>agent de terrain</b> répond aux questions des équipes à partir d'une base interne. Remplissez la fiche à gauche, regardez le reste se mettre à jour.</p>
+  </section>
+</div></div>
+
+<div class="metrics"><div class="wrap"><div class="in">
+  <div class="metric"><div class="n">1 saisie</div><div class="l">le poseur saisit une fois, tout se propage</div></div>
+  <div class="metric"><div class="n">3 outils</div><div class="l">formulaire, fiche client, tableau de bord reliés</div></div>
+  <div class="metric"><div class="n">API · webhook</div><div class="l">no-code, briques découplées</div></div>
+  <div class="metric"><div class="n">1 agent</div><div class="l">réponses terrain sur base interne</div></div>
+</div></div></div>
+
+<div class="wrap">
+  <section>
+    <div class="shead">
+      <div class="eyebrow">Brique 1 et 2 · application et automatisation</div>
+      <h2>La fiche de terrain, puis la chaîne</h2>
+      <div class="rule"></div>
+      <p>Une petite application interne : un formulaire sobre côté poseur, une chaîne d'automatisation côté système. La même saisie alimente la fiche client et le pilotage, sans ressaisie.</p>
+    </div>
+    <div class="app">
+      <div class="card">
+        <h3>Fiche de fin de chantier</h3>
+        <div class="hint">Formulaire tel qu'un technicien le verrait sur mobile.</div>
+        <form class="phone" id="form" novalidate>
+          <div class="fgrid">
+            <div class="field full"><label for="f_client">Client</label><input id="f_client" value="Famille Weber"></div>
+            <div class="field full"><label for="f_ville">Ville du chantier (Alsace)</label><input id="f_ville" value="Brumath"></div>
+            <div class="field full"><label>Type d'installation</label>
+              <div class="seg" id="f_type">
+                <button type="button" data-v="Photovoltaïque" aria-pressed="true">Photovoltaïque</button>
+                <button type="button" data-v="Pompe à chaleur" aria-pressed="false">Pompe à chaleur</button>
+                <button type="button" data-v="Borne IRVE" aria-pressed="false">Borne IRVE</button>
+                <button type="button" data-v="Climatisation" aria-pressed="false">Climatisation</button>
+              </div>
+            </div>
+            <div class="field"><label for="f_kwc">Puissance (kWc)</label><input id="f_kwc" inputmode="decimal" value="6"></div>
+            <div class="field"><label for="f_pan">Nb de panneaux</label><input id="f_pan" inputmode="numeric" value="14"></div>
+            <div class="field full"><label for="f_ond">Onduleur (série)</label><input id="f_ond" value="HUA-2208-0471"></div>
+            <div class="field full"><label>Étape atteinte</label>
+              <div class="seg" id="f_step">
+                <button type="button" data-v="Pose terminée" aria-pressed="true">Pose terminée</button>
+                <button type="button" data-v="Mise en service" aria-pressed="false">Mise en service</button>
+                <button type="button" data-v="Consuel visé" aria-pressed="false">Consuel visé</button>
+              </div>
+            </div>
+            <div class="field full"><label>Anomalie à signaler</label>
+              <div class="seg" id="f_anom">
+                <button type="button" data-v="non" aria-pressed="true">Aucune</button>
+                <button type="button" data-v="oui" aria-pressed="false">Oui, à traiter</button>
+              </div>
+            </div>
+            <div class="field full" id="anomwrap" hidden><label for="f_anote">Détail de l'anomalie</label><input id="f_anote" value="Module 9 micro-rayé, à remplacer"></div>
+            <div class="field full"><label for="f_tech">Technicien</label><input id="f_tech" value="K. Muller"></div>
+          </div>
+          <button class="submit" type="submit">Valider la fiche</button>
+          <div class="ferr" id="ferr" role="alert"></div>
+        </form>
+      </div>
+      <div class="card">
+        <h3>La chaîne d'automatisation</h3>
+        <div class="hint">Ce qui se déclenche à la validation, étape par étape.</div>
+        <div class="pipe" id="pipe">
+          <div class="node" data-n="0"><span class="dotn"></span><span class="nl">Fiche de terrain envoyée</span><span class="nk">Formulaire</span></div>
+          <div class="node" data-n="1"><span class="dotn"></span><span class="nl">Réception et contrôle du format</span><span class="nk">Webhook</span></div>
+          <div class="node" data-n="2"><span class="dotn"></span><span class="nl">Normalisation (ville, kWc, série)</span><span class="nk">Fonction</span></div>
+          <div class="node" data-n="3"><span class="dotn"></span><span class="nl">Recherche de doublon par clé chantier</span><span class="nk">Anti-doublon</span></div>
+          <div class="node" data-n="4"><span class="dotn"></span><span class="nl">Mise à jour de la fiche client</span><span class="nk">CRM · upsert</span></div>
+          <div class="node" data-n="5"><span class="dotn"></span><span class="nl">Tableau de bord rafraîchi</span><span class="nk">Dashboard</span></div>
+          <div class="node" data-n="6"><span class="dotn"></span><span class="nl">Alerte si anomalie signalée</span><span class="nk">Notification</span></div>
+        </div>
+        <div class="pipe-note">Une seule saisie, chaque brique est indépendante. <b>Zéro double saisie</b> entre le terrain, la fiche client et le pilotage.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div style="background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+  <section>
+    <div class="shead">
+      <div class="eyebrow">Brique 3 · pilotage</div>
+      <h2>Le tableau de bord des chantiers</h2>
+      <div class="rule"></div>
+      <p>Les chiffres et la liste se recalculent à chaque fiche validée. Données fictives, lisibles par une équipe non technique.</p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="bars" id="bars"></div>
+    <div class="tblwrap"><table id="tbl">
+      <thead><tr><th>Chantier</th><th>Ville</th><th>Type</th><th>kWc</th><th>Étape</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+    <div class="row-note" id="rownote">La dernière fiche validée apparaît en tête, surlignée.</div>
+  </section>
+</div></div>
+
+<div class="wrap">
+  <section>
+    <div class="shead">
+      <div class="eyebrow">Brique 4 · agent IA</div>
+      <h2>L'assistant de terrain</h2>
+      <div class="rule"></div>
+      <p>Un agent qui répond aux questions des équipes à partir d'une base interne (procédures, garanties, sécurité). Il cite sa source et reste dans son périmètre.</p>
+    </div>
+    <div class="assist">
+      <div class="suggest" id="suggest"></div>
+      <div class="chatbox" id="chat">
+        <div class="msg a"><span class="who">Agent</span><span class="bub">Bonjour. Posez une question de terrain, ou choisissez une suggestion au-dessus. Je réponds à partir de la base interne HDR (exemple).</span></div>
+      </div>
+      <form class="ask" id="ask">
+        <input id="askin" placeholder="Votre question de terrain" aria-label="Votre question">
+        <button type="submit">Demander</button>
+      </form>
+    </div>
+  </section>
+
+  <section style="padding-top:10px">
+    <div class="limits">
+      <div class="l">Honnêteté sur la démo</div>
+      <p>Tout tourne dans le navigateur, sans serveur ni donnée réelle HDR. La fiche, la chaîne, le tableau de bord et l'agent sont simulés pour montrer le principe et la mécanique. En production, les mêmes briques s'appuient sur n8n, des webhooks, un CRM ou Airtable et un agent branché sur une vraie base de connaissances, avec contrôle humain sur les cas sensibles.</p>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="fm">Baba Moustapha Amadou</div>
+  <div class="fs">n8n · API · Webhooks · Agents IA · Power BI · Python</div>
+  <div class="fn">Démonstration conçue pour le poste de Chargé de projets IA &amp; Digital, HDR Énergie.</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement,btn=document.getElementById('themeBtn');
+  try{var s=localStorage.getItem('bma-theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  function cur(){var a=root.getAttribute('data-theme');return a?a:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');}
+  if(btn)btn.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('bma-theme',n);}catch(e){}});
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // --- segmented buttons ---
+  function segValue(id){var g=document.getElementById(id);var b=g.querySelector('[aria-pressed="true"]');return b?b.getAttribute('data-v'):'';}
+  document.querySelectorAll('.seg').forEach(function(g){
+    g.addEventListener('click',function(e){
+      var b=e.target.closest('button');if(!b)return;
+      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      if(g.id==='f_anom'){document.getElementById('anomwrap').hidden=(b.getAttribute('data-v')!=='oui');}
+    });
+  });
+
+  // --- seed data ---
+  var data=[
+    {client:"SCI Ostwald",ville:"Ostwald",type:"Photovoltaïque",kwc:9,step:"Mise en service",anom:false},
+    {client:"M. Schmitt",ville:"Haguenau",type:"Pompe à chaleur",kwc:0,step:"Pose terminée",anom:false},
+    {client:"Garage Lutz",ville:"Molsheim",type:"Borne IRVE",kwc:0,step:"Consuel visé",anom:false},
+    {client:"Famille Oberlé",ville:"Haguenau",type:"Photovoltaïque",kwc:5,step:"Pose terminée",anom:true},
+    {client:"Boulangerie Keller",ville:"Molsheim",type:"Climatisation",kwc:0,step:"Mise en service",anom:false}
+  ];
+  var freshKey=null;
+
+  function stClass(s){return s==='Consuel visé'||s==='Mise en service'?'st ok':(s==='Pose terminée'?'st go':'st');}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function render(){
+    // KPIs
+    var n=data.length;
+    var kwc=data.reduce(function(a,r){return a+(Number(r.kwc)||0);},0);
+    var mes=data.filter(function(r){return r.step==='Mise en service'||r.step==='Consuel visé';}).length;
+    var anom=data.filter(function(r){return r.anom;}).length;
+    var pct=n?Math.round(mes/n*100):0;
+    document.getElementById('kpis').innerHTML=
+      kpi(n,'chantiers suivis')+kpi(kwc.toFixed(0).replace('.',',')+' kWc','photovoltaïque cumulé')+
+      kpi(pct+' %','mis en service ou visés')+kpi(anom,'anomalie(s) à traiter');
+    // Bars kWc par ville (PV only)
+    var byv={};data.forEach(function(r){if(Number(r.kwc)>0){byv[r.ville]=(byv[r.ville]||0)+Number(r.kwc);}});
+    var keys=Object.keys(byv).sort(function(a,b){return byv[b]-byv[a];});
+    var max=keys.reduce(function(m,k){return Math.max(m,byv[k]);},1);
+    document.getElementById('bars').innerHTML=keys.map(function(k){
+      var w=Math.round(byv[k]/max*100);
+      return '<div class="bar"><div class="bl">'+esc(k)+'</div><div class="bt"><div class="bf" style="width:'+w+'%"></div></div><div class="bv">'+String(byv[k]).replace('.',',')+' kWc</div></div>';
+    }).join('')||'<div class="row-note">Aucune puissance photovoltaïque pour l\'instant.</div>';
+    // Table
+    document.getElementById('tbody').innerHTML=data.map(function(r){
+      var k=r.client+'|'+r.ville;
+      var kwc=Number(r.kwc)>0?String(r.kwc).replace('.',','):'—';
+      var step='<span class="'+stClass(r.step)+'">'+esc(r.step)+'</span>';
+      if(r.anom){step+=' <span class="st al">anomalie</span>';}
+      return '<tr'+(k===freshKey?' class="fresh"':'')+'><td>'+esc(r.client)+'</td><td>'+esc(r.ville)+'</td><td>'+esc(r.type)+'</td><td>'+kwc+'</td><td>'+step+'</td></tr>';
+    }).join('');
+  }
+  function kpi(n,l){return '<div class="kpi"><div class="n tnum">'+n+'</div><div class="l">'+l+'</div></div>';}
+
+  // --- pipeline animation ---
+  var nodes=[].slice.call(document.querySelectorAll('#pipe .node'));
+  function runPipe(hasAnom,done){
+    nodes.forEach(function(x){x.classList.remove('on','done');});
+    var seq=hasAnom?[0,1,2,3,4,5,6]:[0,1,2,3,4,5];
+    var i=0;
+    if(reduce){seq.forEach(function(k){nodes[k].classList.add('done');});done();return;}
+    (function step(){
+      if(i>0)nodes[seq[i-1]].classList.replace('on','done');
+      if(i>=seq.length){done();return;}
+      nodes[seq[i]].classList.add('on');i++;setTimeout(step,360);
+    })();
+  }
+
+  // --- form submit ---
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('ferr');err.textContent='';
+    var client=document.getElementById('f_client').value.trim();
+    var ville=document.getElementById('f_ville').value.trim();
+    var type=segValue('f_type');
+    var kwc=type==='Photovoltaïque'?(parseFloat(document.getElementById('f_kwc').value.replace(',','.'))||0):0;
+    var step=segValue('f_step');
+    var anom=segValue('f_anom')==='oui';
+    if(!client||!ville){err.textContent='Renseignez au moins le client et la ville.';return;}
+    if(type==='Photovoltaïque'&&kwc<=0){err.textContent='Indiquez la puissance en kWc pour un chantier photovoltaïque.';return;}
+    var rec={client:client,ville:ville,type:type,kwc:kwc,step:step,anom:anom};
+    var key=client+'|'+ville;
+    runPipe(anom,function(){
+      var idx=data.findIndex(function(r){return (r.client+'|'+r.ville)===key;});
+      if(idx>-1){data.splice(idx,1);} // upsert: pas de doublon
+      data.unshift(rec);freshKey=key;render();
+      document.getElementById('rownote').textContent=anom
+        ? 'Fiche enregistrée et remontée. Une anomalie a déclenché une alerte, visible dans la liste.'
+        : 'Fiche enregistrée en tête, fiche client mise à jour, aucune ressaisie.';
+      document.getElementById('kpis').scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+    });
+  });
+
+  // --- agent de terrain, base interne simulée ---
+  var KB=[
+    {k:['consuel','délai','delais','attestation'],a:"Le Consuel atteste la conformité de l'installation. Comptez en général 10 à 20 jours entre la demande et le visa. La mise en service réseau se fait après ce visa.",s:"Procédures · Raccordement"},
+    {k:['garantie','onduleur','micro-onduleur'],a:"Les onduleurs sont garantis 10 ans d'origine, extensibles à 20 ou 25 ans selon le fabricant. Le numéro de série de la fiche de chantier sert à ouvrir un dossier garantie.",s:"Catalogue · Garanties"},
+    {k:['panneau','module','rendement','garantie panneau'],a:"Les modules photovoltaïques portent une garantie produit de 12 à 25 ans et une garantie de production linéaire sur 25 ans. Un module rayé ou cassé se signale comme anomalie sur la fiche.",s:"Catalogue · Modules"},
+    {k:['sécurité','securite','toiture','epi','harnais','chute'],a:"Travaux en hauteur : harnais et ligne de vie obligatoires, balisage au sol, pas d'intervention toiture par vent fort ou pluie. Coupure et consignation avant toute intervention électrique.",s:"Sécurité · Travaux en hauteur"},
+    {k:['fin de chantier','documents','dossier','pv','réception','reception'],a:"Le dossier de fin de chantier réunit la fiche signée, les photos avant/après, l'attestation Consuel et le procès-verbal de réception client. La fiche de terrain alimente ce dossier automatiquement.",s:"Procédures · Fin de chantier"},
+    {k:['borne','irve','recharge','voiture'],a:"Une borne IRVE doit être posée par un technicien qualifié IRVE. On vérifie la puissance disponible au compteur et on déclare l'installation au gestionnaire de réseau si la puissance l'exige.",s:"Procédures · IRVE"},
+    {k:['batterie','stockage','onduleur hybride'],a:"Le stockage se dimensionne sur la consommation du soir et la puissance de l'installation. On privilégie un onduleur hybride quand une batterie est prévue dès le départ.",s:"Catalogue · Stockage"}
+  ];
+  var SUG=["Quel est le délai Consuel ?","Quelle garantie sur les onduleurs ?","Règles de sécurité en toiture ?","Que contient le dossier de fin de chantier ?"];
+  var sug=document.getElementById('suggest');
+  sug.innerHTML=SUG.map(function(q){return '<button type="button">'+esc(q)+'</button>';}).join('');
+  sug.addEventListener('click',function(e){var b=e.target.closest('button');if(b)answer(b.textContent);});
+
+  function norm(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  function find(q){
+    var nq=norm(q),best=null,score=0;
+    KB.forEach(function(e){
+      var sc=e.k.reduce(function(a,kw){return a+(nq.indexOf(norm(kw))>-1?1:0);},0);
+      if(sc>score){score=sc;best=e;}
+    });
+    return score>0?best:null;
+  }
+  var chat=document.getElementById('chat');
+  function push(who,cls,html){
+    var d=document.createElement('div');d.className='msg '+cls;
+    d.innerHTML='<span class="who">'+who+'</span><span class="bub">'+html+'</span>';
+    chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
+  }
+  function answer(q){
+    push('Vous','u',esc(q));
+    var hit=find(q);
+    if(hit){push('Agent','a',esc(hit.a)+'<br><span class="src">Source : '+esc(hit.s)+'</span>');}
+    else{push('Agent','a',"Je n'ai pas cette réponse dans la base interne de la démo. En production, l'agent irait chercher dans la documentation HDR et renverrait vers la bonne procédure ou la bonne personne.");}
+  }
+  document.getElementById('ask').addEventListener('submit',function(e){
+    e.preventDefault();var i=document.getElementById('askin');var v=i.value.trim();if(!v)return;answer(v);i.value='';
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

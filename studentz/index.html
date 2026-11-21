@@ -183,7 +183,7 @@ footer .fnote{font-family:var(--sans);font-size:10.5px;color:#6f6f6f;max-width:8
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<header class="brand"><a id="bmaback" href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a><script>(function(){try{var b=document.getElementById("bmaback");if(location.search.indexOf("from=junior")>-1||document.referrer.indexOf("/junior/")>-1){b.setAttribute("href","../junior/");}}catch(e){}})();</script>
+<header class="brand"><a id="bmaback" href="../" style="position:absolute;top:50%;left:max(16px,env(safe-area-inset-left,0px));transform:translateY(-50%);color:#cfcfcf;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;z-index:5">&#8592; Portfolio</a><script>(function(){try{var b=document.getElementById("bmaback");var m=location.search.match(/[?&]from=([a-z0-9-]+)/i);var s=m?m[1]:"";if(!s&&document.referrer){try{var u=new URL(document.referrer);if(u.host===location.host){var p=u.pathname.split("/").filter(Boolean);var i=p.indexOf("portfolio");s=i>-1?(p[i+1]||""):"";}}catch(e2){}}if(s&&/^[a-z0-9-]+$/.test(s)){b.setAttribute("href","../"+s+"/");}}catch(e){}})();</script>
   <div class="wordmark">Baba Moustapha Amadou</div>
   <div class="submark">Architecte de solutions IA · Démonstrateur</div>
   <button class="theme-btn" id="themeBtn" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>

@@ -128,6 +128,8 @@ section{padding-block:56px}
 .demolink{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--nav);padding:11px 18px;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;border:1px solid var(--nav)}
 .demolink:hover{background:transparent;color:var(--nav)}
 .demolink svg{width:14px;height:14px}
+.codelink{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--nav);background:transparent;padding:11px 16px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid var(--nav)}
+.codelink:hover{background:var(--nav);color:var(--bg)}
 .nature{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2);border:1px solid var(--line);background:var(--panel);padding:5px 10px;white-space:nowrap}
 .cend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
 .demonote{font-family:var(--sans);font-size:11px;color:var(--ink3);text-transform:none;letter-spacing:0;margin-top:10px}
@@ -176,7 +178,7 @@ footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.26em;text-tra
 <main>
 <div class="marble"><div class="wrap">
   <section class="hero" style="padding-top:58px"><div class="herogrid"><div class="herotext">
-    <div class="avail"><span class="dot"></span> Ouvert à une alternance ou un CDI, disponible immédiatement</div>
+    <div class="avail"><span class="dot"></span> IA, data et automatisation, du besoin métier à la production</div>
     <h1>Je construis des agents IA, des automatisations et des outils métier, puis je les fais adopter.</h1>
     <div class="role">Chef de projet IA, Data &amp; Automatisation · Transformation digitale</div>
     <p class="lead">Trois ans en SI et data, dont un an à construire des agents avec <b>Claude et Claude Code</b>. Je cadre un besoin, je construis la solution (<b>agents IA, RAG, automatisations n8n et Python</b>) et je la fais adopter par les équipes, avec des gains mesurés. J'explique simplement et j'aime autant le terrain que l'écran.</p>
@@ -208,6 +210,27 @@ footer .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.26em;text-tra
       <div class="rule"></div>
       <p>Chaque réalisation suit la lecture STAR : la situation, ce que j'ai fait, le résultat. Chaque preuve mène à une démonstration jouable.</p>
     </div>
+
+    <article class="case">
+      <div class="top">
+        <div><h3>Un diagnostic de maturité IA, du score au plan d'action</h3>
+          <div class="org">Outil conçu et mis en production · agent IA · 2026</div></div>
+        <div class="tag">Agent IA · Produit</div>
+      </div>
+      <div class="star">
+        <div class="sblock"><div class="sl">Situation</div><p>Un dirigeant veut savoir où il en est avec l'IA et par où commencer, sans lancer un audit lourd.</p></div>
+        <div class="sblock"><div class="sl">Action</div><ul>
+          <li>Questionnaire sur 6 dimensions, score calculé en code, transparent et reproductible.</li>
+          <li>Un modèle Claude rédige le diagnostic : forces, angles morts, feuille de route priorisée.</li>
+          <li>Rapport téléchargeable, conformité RGPD et AI Act prise en compte.</li>
+        </ul></div>
+        <div class="sblock res"><div class="sl">Résultat</div><p>Un outil réel, en production, qui transforme deux minutes de questionnaire en un plan d'action clair. <span class="rv">Score en code, rédaction par le modèle.</span></p></div>
+      </div>
+      <div class="casebot">
+        <div class="stack"><span>Claude Sonnet</span><span>Référentiel</span><span>Serverless</span><span>Vercel</span><span>JavaScript</span></div>
+        <div class="cend"><a class="codelink" href="https://github.com/BMA1026/diagnostic-maturite-ia" target="_blank" rel="noopener">Code</a><a class="demolink" href="https://diagnostic-maturite-ia.vercel.app" target="_blank" rel="noopener">Démo live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </article>
 
     <article class="case">
       <div class="top">

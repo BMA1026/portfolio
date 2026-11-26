@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Démonstrateurs IA, Baba Moustapha Amadou</title>
+<meta name="description" content="Des produits IA réels, en production, avec le code ouvert : un agent avant-vente RAG et un diagnostic de maturité IA. Jouables, documentés.">
+<meta property="og:title" content="Démonstrateurs IA, Baba Moustapha Amadou">
+<meta property="og:description" content="Des produits IA réels, en production, code ouvert. Jouables.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#ffffff;--surface:#f9f9f9;--panel:#f5f5f5;--dark:#111;--dark-fg:#fff;
+  --ink:#1a1a1a;--ink2:#555;--ink3:#737373;--line:#e0e0e0;--line2:#ececec;
+  --nav:#1C3557;--nav-s:#eaeef4;--green:#1B5E3B;--bronze:#7B5E3A;
+  --shadow:0 1px 2px rgba(17,17,17,.05),0 10px 34px rgba(17,17,17,.07);
+  --serif:"EB Garamond",Georgia,serif;--sans:"Montserrat",system-ui,Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --maxw:980px;color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111;--surface:#171717;--panel:#1c1c1c;--dark:#000;--ink:#f3f3f3;--ink2:#b4b4b4;--ink3:#888;--line:#333;--line2:#262626;
+  --nav:#5a82c0;--nav-s:#17202f;--green:#5aa77e;--bronze:#b89a6a;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111;--surface:#171717;--panel:#1c1c1c;--dark:#000;--ink:#f3f3f3;--ink2:#b4b4b4;--ink3:#888;--line:#333;--line2:#262626;
+  --nav:#5a82c0;--nav-s:#17202f;--green:#5aa77e;--bronze:#b89a6a;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 36px rgba(0,0,0,.55);color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 max(22px,env(safe-area-inset-left,0px))}
+header.bar{position:sticky;top:0;z-index:20;background:var(--dark);color:var(--dark-fg);border-bottom:1px solid #262626}
+.bar .in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(22px,env(safe-area-inset-left,0px))}
+.wm{font-family:var(--serif);text-transform:uppercase;font-size:14px;letter-spacing:.2em}
+.bar nav{display:flex;gap:18px;align-items:center}
+.bar nav a{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#b4b4b4;text-decoration:none}
+.bar nav a:hover{color:#fff}
+.theme-btn{appearance:none;background:transparent;border:1px solid #3a3a3a;color:#cfcfcf;width:30px;height:30px;border-radius:50%;cursor:pointer}
+.hero{padding:56px 0 20px;text-align:center}
+.eyebrow{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+h1{font-family:var(--serif);font-weight:500;letter-spacing:.05em;font-size:clamp(27px,4.8vw,44px);text-transform:uppercase;margin:14px 0 0;line-height:1.14}
+.lead{max-width:60ch;margin:18px auto 0;color:var(--ink2);font-size:16px}
+.lead b{color:var(--ink);font-weight:600}
+.rule{width:52px;height:1px;background:var(--ink);margin:22px auto 0}
+.grid{display:grid;grid-template-columns:1fr;gap:22px;padding:30px 0 10px}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+.prod{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:clamp(22px,3vw,30px);display:flex;flex-direction:column}
+.prod .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--nav);border:1px solid var(--line);padding:4px 9px;align-self:flex-start}
+.prod h2{font-family:var(--serif);font-size:clamp(19px,2.6vw,23px);letter-spacing:.02em;text-transform:none;font-weight:600;margin:16px 0 0;line-height:1.2}
+.prod p{color:var(--ink2);font-size:14px;margin:12px 0 0}
+.prod .how{font-family:var(--sans);font-size:12.5px;color:var(--ink3);margin-top:12px;border-left:2px solid var(--line);padding-left:12px}
+.stack{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.stack span{font-family:var(--mono);font-size:10px;color:var(--ink2);border:1px solid var(--line);padding:3px 8px}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.demolink{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--nav);padding:11px 18px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--nav);text-decoration:none}
+.demolink:hover{background:transparent;color:var(--nav)}
+.demolink svg{width:14px;height:14px}
+.codelink{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--nav);background:transparent;padding:11px 18px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--nav);text-decoration:none}
+.codelink:hover{background:var(--nav);color:var(--bg)}
+.note{background:var(--panel);border:1px solid var(--line);padding:16px 18px;margin:24px 0 34px;font-size:12.5px;color:var(--ink2)}
+.note b{color:var(--ink)}
+footer{background:var(--dark);color:#9a9a9a;text-align:center;padding:28px 0 40px}
+footer .fm{font-family:var(--serif);text-transform:uppercase;color:#fff;font-size:14px;letter-spacing:.22em}
+footer .fs{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;margin-top:8px;color:#8a8a8a}
+</style>
+</head>
+<body>
+<header class="bar"><div class="in">
+  <span class="wm">Baba Moustapha Amadou</span>
+  <nav>
+    <a href="../junior/">Portfolio</a>
+    <button class="theme-btn" id="themeBtn" aria-label="Thème clair ou sombre" title="Clair / sombre">◑</button>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">Démonstrateurs IA</span>
+    <h1>Des produits IA réels, en production</h1>
+    <p class="lead">Je ne livre pas des maquettes, je livre des systèmes qui tournent. Chaque démonstrateur est <b>jouable en ligne</b>, construit avec un vrai modèle Claude, et son <b>code est ouvert</b>.</p>
+    <div class="rule"></div>
+  </section>
+
+  <section class="grid">
+    <article class="prod">
+      <span class="tag">Agent IA · RAG</span>
+      <h2>Agent avant-vente, branché sur les documents d'une entreprise</h2>
+      <p>Un agent conversationnel qui répond aux questions d'un prospect à partir d'une base de connaissances, qualifie le besoin et oriente vers une prise de rendez-vous. Exemple construit sur le contenu public d'une agence IA.</p>
+      <div class="how">Retrieval sur la base de connaissances, puis réponse par Claude, bornée au contexte. Backend serverless, clé côté serveur.</div>
+      <div class="stack"><span>Claude Haiku</span><span>RAG</span><span>Serverless</span><span>Vercel</span><span>JavaScript</span></div>
+      <div class="actions">
+        <a class="demolink" href="https://axem-avant-vente.vercel.app" target="_blank" rel="noopener">Démo live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="codelink" href="https://github.com/BMA1026/axem-avant-vente" target="_blank" rel="noopener">Code</a>
+      </div>
+    </article>
+
+    <article class="prod">
+      <span class="tag">Agent IA · Produit</span>
+      <h2>Diagnostic de maturité IA, du score au plan d'action</h2>
+      <p>Un questionnaire sur 6 dimensions, un score calculé en code (transparent, reproductible), puis un diagnostic rédigé par Claude : forces, angles morts, feuille de route priorisée, cas d'usage, conformité. Rapport téléchargeable.</p>
+      <div class="how">Le score est déterministe et auditable, le modèle intervient sur la synthèse et les recommandations. Sortie JSON validée côté serveur.</div>
+      <div class="stack"><span>Claude Sonnet</span><span>Scoring déterministe</span><span>Serverless</span><span>Vercel</span><span>JavaScript</span></div>
+      <div class="actions">
+        <a class="demolink" href="https://diagnostic-maturite-ia.vercel.app" target="_blank" rel="noopener">Démo live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="codelink" href="https://github.com/BMA1026/diagnostic-maturite-ia" target="_blank" rel="noopener">Code</a>
+      </div>
+    </article>
+  </section>
+
+  <div class="note">
+    <b>À propos.</b> Ces démonstrateurs utilisent de vrais modèles Claude via un backend serverless, avec la clé côté serveur. Ils s'appuient sur des contenus publics ou fictifs, sans donnée confidentielle. Chaque code est documenté et conçu pour être adapté à un autre contexte en changeant la base de connaissances.
+  </div>
+</main>
+
+<footer>
+  <div class="fm">Baba Moustapha Amadou</div>
+  <div class="fs">Produits IA en production · Code ouvert · Construit avec Claude Code</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement,tb=document.getElementById('themeBtn');
+  try{var s=localStorage.getItem('bma-theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  function cur(){var a=root.getAttribute('data-theme');return a?a:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');}
+  tb.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('bma-theme',n);}catch(e){}});
+})();
+</script>
+</body>
+</html>
